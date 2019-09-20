@@ -8,5 +8,3 @@ and other useful measurements to bring farming to the mondern era.
 Created by 
 Brandon Faust and Christian Jensen  
 
-
-contact for coding use via email: 
