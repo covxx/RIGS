@@ -27,10 +27,9 @@ Next Steps
 
 10/17/19 v0.1.5
 ----------
-Fixed menu sturcture
+Fixed menu structure
 Added setting class
 Added shutdown class
-Added explaintion to data classes 
-Added Settngs menu option, settings is currently non existant however the class exits
-Removed Time and date from menu for the current time 
+Added explanation to data classes
+Added Settings menu option, settings is currently not currently implemented however the class Removed Time and date from menu for the current time
 -
