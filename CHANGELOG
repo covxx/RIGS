@@ -5,3 +5,22 @@ Changelog
 Created menu
 Started if statements for menu system
 Compiled and tested syntax currently runs, no errors
+-
+
+9/24/19 v0.0.1
+----------
+Recreated menu
+Using emu sensehat program displays values but does not loop
+Program is currently working
+Program verison is now 0.0.1
+Pushed current to git
+-
+
+3/14/19 v0.1.0
+----------
+Impmented Sense hat data reading
+Sense hat data is now rounded up
+Started work on data logging
+Next Steps
+ -fianlize data logging to local FS, Future logging will be local FS and NET fs
+-
