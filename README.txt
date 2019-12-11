@@ -1,10 +1,28 @@
-M|ushroom
-S|uper
-S|aver
+MSS/Robin (working name)is a project by Christian Jensen and Brandon Faust that utlizes the Raspberry Pi  to bring in door farming to the 20th
+century without  high cost.
 
-MSS is a protpyte software that utlizes the Raspberry Pi system to measure temp, C02 levels, humidaty,
-and other useful measurements to bring farming to the mondern era.
+Project EST: 09/19
 
-Created by 
-Brandon Faust and Christian Jensen  
+Current Status;
+Core program is in working condition, program is able to comuncate with the SenseHat and receive and record data.
+Hardware desgin utlizes the Raspberry Pi and sense hat however custom enclosure is in the pipeline.
+
+
+Software To Do;
+
+Finalize core functions
+Code data upload to server
+Customn alarms set using the SenseHat's Led Matrix
+Webserver with real time data access
+Structure data file 
+
+
+Hardware To Do:
+Desgin enclosure that seperates the sensehat from the main board
+C02  sensor additon 
+
+Known Issues:
+Tempature is inaccurate due to sensor sitting  above RaspberryPi CPU
+Not all funcations are programmed 
+Data file currently has no structure
 
