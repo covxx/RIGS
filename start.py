@@ -16,14 +16,13 @@ temp = round(sense.get_temperature()*9/5+32)
 humi = round(sense.get_humidity())
 mbar = round(sense.get_pressure())
 #Start of program
-def main(): #Checks if data file has already been created  and configures if it does not
+def Run(): #Checks if data file has already been created  and configures if it does not
     if os.path.isfile('data.txt'):  #File
-            print("Loading Program...")
-            main_Menu() #Calls menu
+        print("Loading Program...")
+        main_Menu() #Calls menu
     else:
         print("Configuring Robin software, please wait...") #Configures settings
         tf = open('data.txt', 'w+') #Creates data file
-
         main_Menu()
 
 def get_temp(): #Prints temp and is EOP
@@ -33,11 +32,11 @@ def get_temp(): #Prints temp and is EOP
    # tf.writeclose()
     #sleep(50)
 def hum(): #Humidity
-     print ("The humidity is currently:",humi, "%")
+    print ("The humidity is currently:",humi, "%")
 
-def pbar #Pressure
+def pbar(): #Pressure
     print ("The pressure is currently:",mbar,"mbar")
-    
+
 def main_Menu():
     print ("Welcome to Robin Farming Intrustment")
     print ("Ver. 0.1.5 - 10/17/19")
@@ -70,8 +69,9 @@ def main_Menu():
         settings()
 
 def settings(): #Settings menu, but no settings
+    print("Nothings here")
     main_menu() #Goes back to main menu until theres funticans
 
 def shtdwn(): #Log out process to close data logging and save to local FS and network
-
-main()
+    exit()
+Run()
