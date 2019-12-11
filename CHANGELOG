@@ -33,3 +33,10 @@ Added shutdown class
 Added explanation to data classes
 Added Settings menu option, settings is currently not currently implemented however the class Removed Time and date from menu for the current time
 -
+12/9/19 v0.2
+----------
+- First run check working
+-Started work on data post
+-Cleaned up code
+-Reworked program run layout 
+-syntax checked and program verfied working

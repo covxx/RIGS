@@ -1,9 +1,9 @@
 MSS/Robin (working name)is a project by Christian Jensen and Brandon Faust that utlizes the Raspberry Pi  to bring in door farming to the 20th
 century without  high cost.
 
-Project EST: 09/19
+Project EST: 09/10/19
 
-Current Status;
+Current Status: Working ALPHA V0.2 
 Core program is in working condition, program is able to comuncate with the SenseHat and receive and record data.
 Hardware desgin utlizes the Raspberry Pi and sense hat however custom enclosure is in the pipeline.
 

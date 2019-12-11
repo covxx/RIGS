@@ -1,4 +1,4 @@
-#Main program for Robin
+#Main program for Robin V0.2
 # Copy right Christian Jensen @covxx
 # Contact cmjensenx@gmail.com
 #
