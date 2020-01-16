@@ -18,11 +18,11 @@ Pushed current to git
 
 10/14/19 v0.1.0
 ----------
-Impmented Sense hat data reading
+Implemented Sense hat data reading
 Sense hat data is now rounded up
 Started work on data logging
 Next Steps
- -fianlize data logging to local FS, Future logging will be local FS and NET fs
+ -finalize data logging to local FS, Future logging will be local FS and NET fs
 -
 
 10/17/19 v0.1.5
@@ -35,8 +35,22 @@ Added Settings menu option, settings is currently not currently implemented howe
 -
 12/9/19 v0.2
 ----------
-- First run check working
+-First run check working
 -Started work on data post
 -Cleaned up code
 -Reworked program run layout 
--syntax checked and program verfied working
+-syntax checked and program verified working
+-
+01/15/20 v0.3
+----------
+Started impmenting pre-configured data logging session
+	This will be the main aspect for the software
+	Allowing users to configure the session for
+	their needs and run without re-doing
+	setup every time.
+Renamed Run() to frun() for code management 
+Implemented sub menu for on "Data Now" data logging
+	This allows user to get current stats with
+	out having to run a full session
+Added TO_DO to repo, houses ideas and next steps 
+-
