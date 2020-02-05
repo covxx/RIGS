@@ -8,7 +8,7 @@ import glob
 import requests
 import os.path
 from os import path
-#Configuring sensehat
+Configuring sensehat
 sense = SenseHat()
 sense.clear() #clears data from sensehat
 temp = round(sense.get_temperature()*9/5+32)
@@ -58,24 +58,22 @@ def main_Menu():
         print ("Logging out...")
         #shtdwn() | Shutdown class is currently not implmented
         sys.exit()
-
-def sub_m()#Sub menu
+def sm():
     print ("Manual Data Logging Menu,")
     print ("1. Temperature") #Prints Temp
     print ("2. Humidity") #Print Humidity
     print ("3. Pressure") #Prints Pressure
     print ("----------------------------------------------")
-        smi = int(input("Enter number selection to proceed:  "))
-        if smi == 1:
-            print ("Loading...")
-            get_temp()
-        elif smi == 2:
-            print ("Loading...")
-            hum()
-        elif smi == 3:
-         print ("Loading...")
-            pbar()
-
+    smi = int(input("Enter number selection to proceed:  "))
+    if smi == 1:
+        print ("Loading...")
+        get_temp()
+    elif smi == 2:
+        print ("Loading...")
+        hum()
+    elif smi == 3:
+        print ("Loading...")
+        pbar()
 def settings(): #Settings menu, but no settings
     print("Nothings here")
     main_menu() #Goes back to main menu until theres funticans
@@ -84,3 +82,4 @@ def shtdwn(): #Log out process to close data logging and save to local FS and ne
     exit()
 
 frun() #Program starts 
+ 
