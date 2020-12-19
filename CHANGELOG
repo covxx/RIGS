@@ -1,56 +1,17 @@
-Changelog
+MSS Alpha V .1
 
-9/20/19 v0.0.01
-----------
-Created menu
-Started if statements for menu system
-Compiled and tested syntax currently runs, no errors
--
+Last Updated: 12/19/20
+Status: Working
 
-9/24/19 v0.0.1
-----------
-Recreated menu
-Using emu sensehat program displays values but does not loop
-Program is currently working
-Program verison is now 0.0.1
-Pushed current to git
--
+Change Log:
 
-10/14/19 v0.1.0
-----------
-Implemented Sense hat data reading
-Sense hat data is now rounded up
-Started work on data logging
-Next Steps
- -finalize data logging to local FS, Future logging will be local FS and NET fs
--
+v0.1 / 12.19.20
+Status: Working
+-Rewritten Menu -> Working
+-First Time Setup check -> Working
+-Config File Creation
 
-10/17/19 v0.1.5
-----------
-Fixed menu structure
-Added setting class
-Added shutdown class
-Added explanation to data classes
-Added Settings menu option, settings is currently not currently implemented however the class Removed Time and date from menu for the current time
--
-12/9/19 v0.2
-----------
--First run check working
--Started work on data post
--Cleaned up code
--Reworked program run layout 
--syntax checked and program verified working
--
-01/15/20 v0.3
-----------
-Started impmenting pre-configured data logging session
-	This will be the main aspect for the software
-	Allowing users to configure the session for
-	their needs and run without re-doing
-	setup every time.
-Renamed Run() to frun() for code management 
-Implemented sub menu for on "Data Now" data logging
-	This allows user to get current stats with
-	out having to run a full session
-Added TO_DO to repo, houses ideas and next steps 
--
+
+Currently In Progress:
+-First time Config
+-Data logging session config
