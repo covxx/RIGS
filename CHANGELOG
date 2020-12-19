@@ -14,4 +14,5 @@ Status: Working
 
 Currently In Progress:
 -First time Config
+  File creation has been implemented however there are no settings that utilize the file.
 -Data logging session config

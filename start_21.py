@@ -1,20 +1,22 @@
-#MSS 2021 Rewritten // V0.1
+#MSS 2021 | Alpha V0.1 - Status: Working
 # Copyright Christian Jensen @covxx
 # Contact cmjensenx@gmail.com
 import os
 import os.path
 from pathlib import Path
+from configparser import ConfigParser
+config_object = ConfigParser()
 #Sense hat functions removed for testing with Win10
 #from sense_hat import SenseHat
 #sense = SenseHat()
 setf = Path("config.ini") #Path For Config File
 arun = 'F' #var for first time check, gets over written by ftrun()
 def clear_S(): #Call back for screen clearing
-    os.system('cls')
+    os.system('cls') #This will need to be tested on Rasbien
 def ftrun(): #First time run check
     setf = Path("config.ini")
     if setf.is_file(): #checks if file exists
-        global arun
+        global arun #Set arun to global status
         arun = "True"
         #print(arun) #Debug for first time check
         main_Menu() #Runs main menu
@@ -22,7 +24,8 @@ def ftrun(): #First time run check
         ftsetup() #Runs first time setup
 def ftsetup(): #First time setup config //In Progress
     clear_S()
-    f= open('config.txt',"w+") #Creates config file
+    f= open('config.ini',"w+") #Creates config file
+    global arun #Set arun to global status, this is done twice to make sure the var gets updated
     arun = "True"
     print(arun)
     main_Menu()
@@ -30,7 +33,7 @@ def main_Menu():
     clear_S()
     #print(arun) #Debug for first time check
     print ("Welcome to Robin Farming Intrustment")
-    print ("Alpha Ver. 0.1 - 12/20")
+    print ("Alpha Ver. 0.1 - 12/19")
     print ("----------------------------------------------")
     print("1. Start Data Logging") #Run data logging session
     print ("2. Sensor Data") #Sub menu with sensor specific test
@@ -75,5 +78,4 @@ def sm(): #Menu Option Two
         print("Loading main menu..")
         main_Menu()
 #def start_dls(): #Data Logging start, loads config file to start
-ftrun() #Check for first time setup
-#main_Menu() #Starts Program
+ftrun() #Check for first time setup /
