@@ -1,19 +1,23 @@
 MSS Alpha V 0.2
 
-Last Updated: 12/20/20
+Last Updated: 12/21/20
 Status: Working
 
 Change Log:
 
-v0.2 / 12.20.20
+v0.2 / 12.21.20
 Status: Working
--Added Sense Hat functions
+--
+-Added Sense Hat functions, commented out for testing with windows
 -Started main data logging portion
+  --temp is displaying (place holder until sense hat is worked in)
+-Screen clear func now works across platform
 
 -Updated readme file to current
 
 
 v0.1 / 12.19.20
+--
 Status: Working
 -Rewritten Menu -> Working
 -First Time Setup check -> Working
@@ -22,6 +26,7 @@ Status: Working
 
 
 Currently In Progress:
+--
 -First time Config
   File creation has been implemented however there are no settings that utilize the file.
 -Data logging session config

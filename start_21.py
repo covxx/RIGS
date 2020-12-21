@@ -1,6 +1,9 @@
 #MSS 2021 | Alpha V0.1 - Status: Working
 # Copyright Christian Jensen @covxx
 # Contact cmjensenx@gmail.com
+import subprocess
+import sys
+import select
 import os
 import os.path
 from pathlib import Path
@@ -13,11 +16,10 @@ config_object = ConfigParser()
 #pbar = sense.get_pressure() //Might move these funcations somewhere else
 #tmp = sense.get_temperature()
 #humD = sense.get_humidity()
-
 setf = Path("config.ini") #Path For Config File
 arun = 'F' #var for first time check, gets over written by ftrun()
 def clear_S(): #Call back for screen clearing
-    os.system('cls') #This will need to be tested on Rasbien
+    lambda: subprocess.call('cls' if os.name=='nt' else 'clear') #Cross Platofrm scren clear
 def ftrun(): #First time run check
     setf = Path("config.ini")
     if setf.is_file(): #checks if file exists
@@ -50,13 +52,13 @@ def main_Menu():
     #print(mmi) # Test EOF
     if mmi == 1:
         print ("Loading...")
-        #start_dls() | Not implemented
+        start_dls() #| In Progress...
     elif mmi == 2:
         print ("Loading...")
         sm()
     elif mmi == 3:
         print ("Loading...")
-        #settings() | | Not implemented
+        #settings() #| | Not implemented
     elif mmi == 4: #May need to create a end prog function
         clear_S()
         print ("Good Bye")
@@ -82,8 +84,13 @@ def sm(): #Menu Option Two
     elif smi == 4:
         print("Loading main menu..")
         main_Menu()
-#def start_dls(): #Data Logging start, loads config file to start //In Progress
+def start_dls(): #Data Logging start, loads config file to start //In Progress
 #Config file needs to have user set parm to log (temp,Humidity,pressure)
 #Needs to print current data
-
+    clear_S()
+    dls_temp = "0" #Place holder for win10 testing
+    #sense.clear() Removed for win testing
+    #dls_temp = round(sense.get_temperature()*9/5+32)
+    print ("Starting data logging session...")
+    print("Current Zone temperature:", dls_temp,"F") #This will need to be looped with polling of every 3seconds
 ftrun() #Check for first time setup /
