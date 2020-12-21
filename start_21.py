@@ -9,6 +9,11 @@ config_object = ConfigParser()
 #Sense hat functions removed for testing with Win10
 #from sense_hat import SenseHat
 #sense = SenseHat()
+#sense.clear()
+#pbar = sense.get_pressure() //Might move these funcations somewhere else
+#tmp = sense.get_temperature()
+#humD = sense.get_humidity()
+
 setf = Path("config.ini") #Path For Config File
 arun = 'F' #var for first time check, gets over written by ftrun()
 def clear_S(): #Call back for screen clearing
@@ -77,5 +82,8 @@ def sm(): #Menu Option Two
     elif smi == 4:
         print("Loading main menu..")
         main_Menu()
-#def start_dls(): #Data Logging start, loads config file to start
+#def start_dls(): #Data Logging start, loads config file to start //In Progress
+#Config file needs to have user set parm to log (temp,Humidity,pressure)
+#Needs to print current data
+
 ftrun() #Check for first time setup /

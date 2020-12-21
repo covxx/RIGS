@@ -1,9 +1,17 @@
-MSS Alpha V .1
+MSS Alpha V 0.2
 
-Last Updated: 12/19/20
+Last Updated: 12/20/20
 Status: Working
 
 Change Log:
+
+v0.2 / 12.20.20
+Status: Working
+-Added Sense Hat functions
+-Started main data logging portion
+
+-Updated readme file to current
+
 
 v0.1 / 12.19.20
 Status: Working
@@ -12,7 +20,10 @@ Status: Working
 -Config File Creation
 
 
+
 Currently In Progress:
 -First time Config
   File creation has been implemented however there are no settings that utilize the file.
 -Data logging session config
+  Will be built in to settings portion with FTC
+-start_dls function adding main application data logging

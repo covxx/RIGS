@@ -1,28 +1,18 @@
-MSS/Robin (working name)is a project by Christian Jensen and Brandon Faust that utlizes the Raspberry Pi  to bring in door farming to the 20th
-century without  high cost.
-
+MSS/Robin (Not Final Name)is a project by Christian Jensen and Brandon Faust that utilizes the Raspberry Pi and sense hat(At the current time) to make in door farming 'smart' with environmental data using Python.
+Project started in 9/10/19 but being re-built starting 12/19/20.
 Project EST: 09/10/19
 
-Current Status: Working ALPHA V0.2 
-Core program is in working condition, program is able to comuncate with the SenseHat and receive and record data.
-Hardware desgin utlizes the Raspberry Pi and sense hat however custom enclosure is in the pipeline.
+Current Status: Running/Working
+Current Version: Alpha 0.1
 
+Currently In Progress:
+-First time Config
+  File creation has been implemented however there are no settings that utilize the file.
+-Data logging session config
+  Will be built in to settings portion with FTC
+-start_dls function adding main application data logging
 
-Software To Do;
-
-Finalize core functions
-Code data upload to server
-Customn alarms set using the SenseHat's Led Matrix
-Webserver with real time data access
-Structure data file 
-
-
-Hardware To Do:
-Desgin enclosure that seperates the sensehat from the main board
-C02  sensor additon 
 
 Known Issues:
-Tempature is inaccurate due to sensor sitting  above RaspberryPi CPU
-Not all funcations are programmed 
-Data file currently has no structure
-
+-Temperature is inaccurate due to sensor sitting above CPU // Issue #1 
+  Heatsink\ moving sense hat outside of casing -> Workaround
