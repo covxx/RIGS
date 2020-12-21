@@ -12,6 +12,7 @@ Status: Working
 -Started main data logging portion
   --temp is displaying (place holder until sense hat is worked in)
 -Screen clear func now works across platform
+-Remove some debunk code
 
 -Updated readme file to current
 
