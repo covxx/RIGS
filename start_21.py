@@ -10,7 +10,6 @@ import os.path
 from pathlib import Path
 from configparser import ConfigParser
 config_object = ConfigParser()
-Sense hat functions removed for testing with Win10
 from sense_hat import SenseHat
 sense = SenseHat()
 sense.clear()
