@@ -90,6 +90,29 @@ def sm(): #Menu Option Two
     else: #Any other number re-runs menu
         sm()
         main_Menu()
+def setng():
+        clear_S()
+        sense.clear(0, 255, 0)
+        print ("Settings Menu")
+        print ("1. Device Config") #Config options
+        print ("2. Data Logging Timer") #Change Data logging end timer
+        print ("3. Testing") #Testing menu
+        print ("4. Main Menu") #Back to main menu
+        print ("----------------------------------------------")
+        seti = int(input("Enter number selection to proceed:  "))
+        if seti == 1:
+            print ("Loading...")
+            #dcon() #Not implemented //Device config
+        elif seti == 2:
+            print ("Loading...")
+            #dlet() #Not implemented //Data Logging end timer
+        elif seti == 3:
+            print ("Loading...")
+            #pbar() #Not implemented //Testing menu
+        elif seti == 4:
+            print("Loading main menu..")
+        else: #Any other number re-runs menu
+            setng()
 def pbar():
     clear_S()
     sense.clear()

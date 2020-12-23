@@ -15,7 +15,7 @@ Status: Working
 -Remove some debunk code
 -In progress ->  data logging
 -Now testing on physical sense hat device, all sense hat functions enabled.
-
+  -Need to implement rounding to functions 
 -Updated readme file to current
 
 
