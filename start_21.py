@@ -61,6 +61,8 @@ def main_Menu():
         clear_S()
         print ("Shuting down application")
         exit() #Closes program
+    else:
+        main_Menu()
 def sm(): #Menu Option Two
     clear_S()
     print ("Manual Data Logging Menu") #Prints infomation without saving data to file\server
@@ -81,6 +83,8 @@ def sm(): #Menu Option Two
         #pbar() | Not implemented
     elif smi == 4:
         print("Loading main menu..")
+    else: #Any other number re-runs menu
+        sm()
         main_Menu()
 def g_tp():
     clear_S()
@@ -96,7 +100,7 @@ def start_dls(): #Data Logging start, loads config file to start //In Progress
     #sense.clear() Removed for win testing
     #dls_temp = round(sense.get_temperature()*9/5+32)
     print ("Starting data logging session...")
-    while true:
-        print("Current Zone temperature:", dls_temp,"F") #This will need to be looped with polling of every 3seconds
+    #while true:
+    print("Current Zone temperature:", dls_temp,"F") #This will need to be looped with polling of every 3seconds
 
 ftrun() #Check for first time setup - start program workflow

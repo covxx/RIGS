@@ -1,11 +1,11 @@
 MSS Alpha V 0.2
 
-Last Updated: 12/21/20
+Last Updated: 12/22/20
 Status: Working
 
 Change Log:
 
-v0.2 / 12.21.20
+v0.2 / 12.22.20
 Status: Working
 --
 -Added Sense Hat functions, commented out for testing with windows
@@ -13,6 +13,7 @@ Status: Working
   --temp is displaying (place holder until sense hat is worked in)
 -Screen clear func now works across platform
 -Remove some debunk code
+-In progress ->  data logging
 
 -Updated readme file to current
 
