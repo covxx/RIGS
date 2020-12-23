@@ -93,14 +93,14 @@ def pbar():
     clear_S()
     sense.clear()
     mdls_pbar = round(sense.get_pressure()) #rounds pressure reading
-    print("Current Zone pressure Level:", mdls_temp,"milliebars") #Sensehat unit is milliebars, future will convert
+    print("Current Zone pressure Level:", mdls_pbar,"milliebars") #Sensehat unit is milliebars, future will convert
     input("Press any key to return to menu") #place holder for testing
     main_Menu()
 def hum():
     clear_S()
     sense.clear()
     mdls_hum = sense.get_humidity()
-    print("Current Zone Humidity Level:", mdls_temp,"%")
+    print("Current Zone Humidity Level:", mdls_hum,"%")
     input("Press any key to return to menu") #place holder for testing
     main_Menu()
 def g_tp():
