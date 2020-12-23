@@ -87,7 +87,7 @@ def sm(): #Menu Option Two
         main_Menu()
 def g_tp():
     clear_S()
-    sense.clear() Removed for win testing
+    sense.clear()
     mdls_temp = round(sense.get_temperature()*9/5+32)
     print("Current Zone temperature:", mdls_temp,"F") #This will need to be looped with polling of every 3seconds
 def start_dls(): #Data Logging start, loads config file to start //In Progress
