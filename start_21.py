@@ -39,6 +39,8 @@ def ftsetup(): #First time setup config //In Progress
     main_Menu()
 def main_Menu():
     clear_S()
+    sense.clear()
+    sense.clear(0, 255, 0)
     #print(arun) #Debug for first time check
     print ("Welcome to Robin Farming Intrustment")
     print ("----------------------------------------------")
@@ -65,6 +67,7 @@ def main_Menu():
         main_Menu()
 def sm(): #Menu Option Two
     clear_S()
+    sense.clear(29, 45, 10)
     print ("Manual Data Logging Menu") #Prints infomation without saving data to file\server
     print ("1. Temperature") #Prints Temp
     print ("2. Humidity") #Print Humidity
@@ -89,8 +92,10 @@ def sm(): #Menu Option Two
 def g_tp():
     clear_S()
     sense.clear()
+    sense.clear(0, 0, 255)
     mdls_temp = round(sense.get_temperature()*9/5+32)
     print("Current Zone temperature:", mdls_temp,"F") #This will need to be looped with polling of every 3seconds
+    main_Menu() #loop back to mm for testing, will be changed after loop
 def start_dls(): #Data Logging start, loads config file to start //In Progress
 #Config file needs to have user set parm to log (temp,Humidity,pressure)
 #Needs to print current data
