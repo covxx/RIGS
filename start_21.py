@@ -93,7 +93,7 @@ def sm(): #Menu Option Two
 def pbar():
     clear_S()
     sense.clear()
-    mdls_pbar = pbar() #rounds pressure reading
+    mdls_pbar = round(sense.get_pressure()) #rounds pressure reading
     print("Current Zone pressure Level:", mdls_pbar,"milliebars") #Sensehat unit is milliebars, future will convert
     input("Press any key to return to menu") #place holder for testing
     main_Menu()
