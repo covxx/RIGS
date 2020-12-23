@@ -11,9 +11,9 @@ from pathlib import Path
 from configparser import ConfigParser
 config_object = ConfigParser()
 from sense_hat import SenseHat
-sense.clear(255, 0, 0)
 sense = SenseHat()
 sense.clear()
+sense.clear(255, 0, 0)
 pbar = sense.get_pressure()
 tmp = sense.get_temperature()
 humD = sense.get_humidity()
