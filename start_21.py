@@ -89,6 +89,20 @@ def sm(): #Menu Option Two
     else: #Any other number re-runs menu
         sm()
         main_Menu()
+def pbar():
+    clear_S()
+    sense.clear()
+    mdls_pbar = round(sense.get_pressure()) #rounds pressure reading
+    print("Current Zone pressure Level:", mdls_temp,"milliebars") #Sensehat unit is milliebars, future will convert
+    input("Press any key to return to menu") #place holder for testing
+    main_Menu()
+def hum():
+    clear_S()
+    sense.clear()
+    mdls_hum = sense.get_humidity()
+    print("Current Zone Humidity Level:", mdls_temp,"%")
+    input("Press any key to return to menu") #place holder for testing
+    main_Menu()
 def g_tp():
     clear_S()
     sense.clear()
