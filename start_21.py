@@ -15,9 +15,9 @@ from sense_hat import SenseHat
 sense = SenseHat()
 sense.clear()
 sense.clear(255, 0, 0)
-pbar = sense.get_pressure()
-tmp = sense.get_temperature()
-humD = sense.get_humidity()
+pbar = round(sense.get_pressure())
+tmp = round(sense.get_temperature())
+humD = round(sense.get_humidity())
 setf = Path("config.ini") #Path For Config File
 arun = 'F' #var for first time check, gets over written by ftrun()
 def clear_S(): #Call back for screen clearing
@@ -93,7 +93,7 @@ def sm(): #Menu Option Two
 def pbar():
     clear_S()
     sense.clear()
-    mdls_pbar = math.ceil(sense.get_pressure()) #rounds pressure reading
+    mdls_pbar = pbar() #rounds pressure reading
     print("Current Zone pressure Level:", mdls_pbar,"milliebars") #Sensehat unit is milliebars, future will convert
     input("Press any key to return to menu") #place holder for testing
     main_Menu()
