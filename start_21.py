@@ -11,6 +11,7 @@ from pathlib import Path
 from configparser import ConfigParser
 config_object = ConfigParser()
 from sense_hat import SenseHat
+sense.clear(255, 0, 0)
 sense = SenseHat()
 sense.clear()
 pbar = sense.get_pressure()
@@ -99,5 +100,4 @@ def start_dls(): #Data Logging start, loads config file to start //In Progress
     print ("Starting data logging session...")
     #while true:
     print("Current Zone temperature:", dls_temp,"F") #This will need to be looped with polling of every 3seconds
-
 ftrun() #Check for first time setup - start program workflow
