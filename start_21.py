@@ -10,13 +10,13 @@ import os.path
 from pathlib import Path
 from configparser import ConfigParser
 config_object = ConfigParser()
-#Sense hat functions removed for testing with Win10
-#from sense_hat import SenseHat
-#sense = SenseHat()
-#sense.clear()
-#pbar = sense.get_pressure() //Might move these funcations somewhere else
-#tmp = sense.get_temperature()
-#humD = sense.get_humidity()
+Sense hat functions removed for testing with Win10
+from sense_hat import SenseHat
+sense = SenseHat()
+sense.clear()
+pbar = sense.get_pressure() //Might move these funcations somewhere else
+tmp = sense.get_temperature()
+humD = sense.get_humidity()
 setf = Path("config.ini") #Path For Config File
 arun = 'F' #var for first time check, gets over written by ftrun()
 def clear_S(): #Call back for screen clearing
@@ -89,16 +89,16 @@ def sm(): #Menu Option Two
 def g_tp():
     clear_S()
     mdls_temp = "0" #Place holder for win10 testing
-    #sense.clear() Removed for win testing
-    #mdls_temp = round(sense.get_temperature()*9/5+32)
+    sense.clear() Removed for win testing
+    mdls_temp = round(sense.get_temperature()*9/5+32)
     print("Current Zone temperature:", mdls_temp,"F") #This will need to be looped with polling of every 3seconds
 def start_dls(): #Data Logging start, loads config file to start //In Progress
 #Config file needs to have user set parm to log (temp,Humidity,pressure)
 #Needs to print current data
     clear_S()
     dls_temp = "0" #Place holder for win10 testing
-    #sense.clear() Removed for win testing
-    #dls_temp = round(sense.get_temperature()*9/5+32)
+    sense.clear() Removed for win testing
+    dls_temp = round(sense.get_temperature()*9/5+32)
     print ("Starting data logging session...")
     #while true:
     print("Current Zone temperature:", dls_temp,"F") #This will need to be looped with polling of every 3seconds
