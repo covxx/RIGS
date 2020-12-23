@@ -59,7 +59,7 @@ def main_Menu():
         sm()
     elif mmi == 3:
         print ("Loading...")
-        #settings() #| | Not implemented
+        setng()
     elif mmi == 4: #May need to create a end prog function to close any open data filesd
         clear_S()
         print ("Shuting down application")
@@ -81,12 +81,13 @@ def sm(): #Menu Option Two
         g_tp() #In progress
     elif smi == 2:
         print ("Loading...")
-        hum()
+        g_hum()
     elif smi == 3:
         print ("Loading...")
-        pbar()
+        g_pbar()
     elif smi == 4:
         print("Loading main menu..")
+        main_Menu()
     else: #Any other number re-runs menu
         sm()
         main_Menu()
@@ -111,16 +112,17 @@ def setng():
             #pbar() #Not implemented //Testing menu
         elif seti == 4:
             print("Loading main menu..")
+            main_Menu()
         else: #Any other number re-runs menu
             setng()
-def pbar():
+def g_pbar():
     clear_S()
     sense.clear()
     mdls_pbar = round(sense.get_pressure()) #rounds pressure reading
     print("Current Zone pressure Level:", mdls_pbar,"milliebars") #Sensehat unit is milliebars, future will convert
     input("Press any key to return to menu") #place holder for testing
     main_Menu()
-def hum():
+def g_hum():
     clear_S()
     sense.clear()
     mdls_hum = sense.get_humidity()
