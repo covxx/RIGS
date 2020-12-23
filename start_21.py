@@ -80,10 +80,10 @@ def sm(): #Menu Option Two
         g_tp() #In progress
     elif smi == 2:
         print ("Loading...")
-        #hum() | Not implemented
+        hum()
     elif smi == 3:
         print ("Loading...")
-        #pbar() | Not implemented
+        pbar()
     elif smi == 4:
         print("Loading main menu..")
     else: #Any other number re-runs menu
