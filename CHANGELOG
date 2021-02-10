@@ -1,21 +1,26 @@
-MSS Alpha V 0.2
+MSS Alpha V 0.2.1
 
 Last Updated: 12/23/20
 Status: Working
 
 Change Log:
 
+v0.2.1 / 02/06/2021
+Status: Working
+--
+-Fix main_Main() format
+-Timed data log session work started in start_dls
+	-Currently pulls from a variable, will be changed to set from user input
 v0.2 / 12.23.20
 Status: Working
 --
--Added Sense Hat functions, commented out for testing with windows
 -Started main data logging portion
-  --temp is displaying (place holder until sense hat is worked in)
+  --temp is displaying
 -Screen clear func now works across platform
 -Remove some debunk code
 -In progress ->  data logging
 -Now testing on physical sense hat device, all sense hat functions enabled.
-  -Need to implement rounding to functions 
+  -Need to implement rounding to functions
 -Updated readme file to current
 
 

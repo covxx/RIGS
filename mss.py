@@ -1,4 +1,4 @@
-#MSS 2021 | Alpha V0.2 - Status: Working
+#MSS 2021 | Alpha V0.2.1 - Status: Working
 # Copyright Christian Jensen @covxx
 # Contact cmjensenx@gmail.com
 import subprocess
@@ -15,9 +15,6 @@ from sense_hat import SenseHat
 sense = SenseHat()
 sense.clear()
 sense.clear(255, 0, 0)
-pbar = round(sense.get_pressure())
-tmp = round(sense.get_temperature())
-humD = round(sense.get_humidity())
 setf = Path("config.ini") #Path For Config File
 arun = 'F' #var for first time check, gets over written by ftrun()
 def clear_S(): #Call back for screen clearing
@@ -45,7 +42,7 @@ def main_Menu():
     #print(arun) #Debug for first time check
     print ("Welcome to Robin Farming Intrustment")
     print ("----------------------------------------------")
-    print("1. Start Data Logging") #Run data logging session
+    print ("1. Start Data Logging") #Run data logging session
     print ("2. Sensor Data") #Sub menu with sensor specific test
     print ("3. Settings") #Program settings
     print ("4. Shut Down") #Close Program
@@ -140,10 +137,12 @@ def g_tp():
 def start_dls(): #Data Logging start, loads config file to start //In Progress
 #Config file needs to have user set parm to log (temp,Humidity,pressure)
 #Needs to print current data
+    logtim = 10 #Variable for log interval, will be set by settings menu and be a global var
     clear_S()
     sense.clear()
     dls_temp = round(sense.get_temperature()*9/5+32)
     print ("Starting data logging session...")
-    #while true:
-    print("Current Zone temperature:", dls_temp,"F") #This will need to be looped with polling of every 3seconds
+    log_end = time.time() + logtim 
+    while time.time() < t_end:
+        print("Current Zone temperature:", dls_temp,"F")
 ftrun() #Check for first time setup - start program workflow
