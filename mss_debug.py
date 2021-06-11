@@ -7,29 +7,7 @@ import math
 import threading
 import sys
 import select
-import os
-import os.path
-from pathlib import Path
-from configparser import ConfigParser
-config_object = ConfigParser()
 #------End-Head---
-setf = Path("config.ini") #Path For Config File
-arun = 'F' #var for first time check, gets over written by ftrun()
-def ftrun(): #First time run check
-    setf = Path("config.ini")
-    if setf.is_file(): #checks if file exists
-        global arun #Set arun to global status
-        arun = "True"
-        #print(arun) #Debug for first time check
-        main_Menu() #Runs main menu
-    else:
-        ftsetup() #Runs first time setup
-def ftsetup(): #First time setup config //In Progress
-    f= open('config.ini',"w+") #Creates config file
-    global arun #Set arun to global status, this is done twice to make sure the var gets updated
-    arun = "True"
-    print(arun)
-    main_Menu()
 def main_Menu():
     #print(arun) #Debug for first time check
     print ("MSS Debug Menu")
@@ -101,4 +79,4 @@ def start_dls(): #Data Logging start, loads config file to start //In Progress
     log_end = time.time() + logtim 
 #    while time.time() < t_end:
 #        print("Current Zone temperature:", dls_temp,"F")
-ftrun() #Check for first time setup - start program workflow
+main_Menu() #Check for first time setup - start program workflow
