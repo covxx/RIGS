@@ -68,7 +68,7 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 	while (LogCount < LogTime):   
 		LogCount = LogCount + 1
 		cls()
-        time.sleep(1)
+		time.sleep(1)
         #print(temp)
 	print(LogCount)
 cls()
