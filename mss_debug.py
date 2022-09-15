@@ -69,7 +69,8 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
         LogCount = LogCount + 1
         cls()
         time.sleep(1)
-        #print(temp)
+        temp = sense.get_temperature() #Gets new temp each loop
+        print(temp)
     print(LogCount)
 cls()
 FRun()
