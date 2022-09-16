@@ -68,9 +68,11 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
     while (LogCount < LogTime):   
         LogCount = LogCount + 1
         cls()
-        time.sleep(1)
+        time.sleep(1) #Sleeps 1 second, time is 1/2 seconds off.
         temp = sense.get_temperature() #Gets new temp each loop
-        print(temp)
+        humidity = sense.get_humidity()
+        print('F' + temp)
+        print(humidity)
     print(LogCount)
 cls()
 FRun()
