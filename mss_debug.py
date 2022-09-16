@@ -71,8 +71,8 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
         time.sleep(1) #Sleeps 1 second, time is 1/2 seconds off.
         temp = sense.get_temperature() #Gets new temp each loop
         humidity = sense.get_humidity()
-        print("F" + temp)
-        print(humidity)
+        print("F",temp) #Prints temp
+        print(humidity,"%") #Prints humidity
     print(LogCount)
 cls()
 FRun()
