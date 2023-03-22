@@ -5,6 +5,7 @@
 import os
 import time
 import logging
+import keyboard
 from os import system
 from datetime import datetime
 from datetime import date
@@ -84,7 +85,15 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 	input('Press enter to return to main menu.')
 	MainStart()
 def Start_sd(): #Live sensor data menu, no logging IN PROGRESS!!
+	sd_temp = 0
 	clear_screen
-	#
+	try:
+		while True:
+			print("Sensor data will be shown below, to exit press any key.")
+			print(str(current_date_time) + ': The current tempture is: ' + sd_temp) #Prints current date and time with tempture, loops till anykey
+	except KeyboardInterrupt:
+			print("Session has been ended, returning to main lobby..")
+			MainStart()
+		
 clear_screen()
 FRun()
