@@ -9,7 +9,7 @@ import threading
 import sys
 import select
 import time
-import os.path
+import os
 from os import system
 from datetime import datetime
 #import os.name
