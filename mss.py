@@ -85,7 +85,7 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 	MainStart()
 def Start_sd(): #Live sensor data menu, no logging IN PROGRESS!!
 	sd_temp = 0
-	clear_screen
+	clear_screen()
 	try:
 		while True:
 			clear_screen()
@@ -94,9 +94,9 @@ def Start_sd(): #Live sensor data menu, no logging IN PROGRESS!!
 			time.sleep(1.0) #Matrix wall without
 	except KeyboardInterrupt:
 			clear_screen()
+			print('The final tempture is: ', sd_temp, 'F')
 			print("Session has been ended, returning to main menu..")
 			time.sleep(3.0) #Sleep for message to display, yes making it slower on purpose
-			MainStart()
-		
+			MainStart() #Back to menu
 clear_screen()
 FRun()
