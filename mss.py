@@ -2,20 +2,12 @@
 # https://github.com/covxx/mss
 # Build Date 3/21/2023
 # Build Ver. 0.5
-#from signal import pause
-import subprocess
-import math
-import threading
-import sys
-import select
-import time
 import os
+import time
 from os import system
 from datetime import datetime
 from datetime import date
 from os import system, name
-#import exists
-#from sense_hat import SenseHat
 today_date = date.today()
 current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
 today_date_time = datetime.now()
