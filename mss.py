@@ -10,7 +10,7 @@ from datetime import datetime
 from datetime import date
 from os import system, name
 from prometheus_client import Gauge, start_http_server #For web server
-web_port = 8000 #Web server port
+web_port = 9090 #Web server port
 start_http_server(web_port) #Web sever start
 gt = Gauge('RIGS_temperature',
            'Temperature measured by the RIGS Sensor', ['scale'])
