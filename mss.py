@@ -2,7 +2,7 @@
 # https://github.com/covxx/mss
 # Build Date 09/15/2022 
 # Build Ver. 0.1
-from signal import pause
+#from signal import pause
 import subprocess
 import math
 import threading
@@ -11,11 +11,12 @@ import select
 import time
 import os.path
 from os import system
+from datetime import datetime
 #import os.name
 #import exists
 #from sense_hat import SenseHat
-from datetime import date
-current_date = date.strftime("%m/%d/%y") #Gets date and saves to var
+today_date = datetime.now()
+current_date = today_date.strftime("%d/%m/%Y %H:%M:%S") #Gets date and saves to var
 def cls():
 	system('clear')
 def FRun(): #First time run check check, verifies config file is present
@@ -59,6 +60,7 @@ def MainStart():
 		MainStart()
 def Start_DLS(): #General Datalogging, will become menu later with abilty to define args, now for debuging
 	cls()
+	current_temp = 0 #Current temp
 	LogCount = 0 #Loop timer
 	LogTime = 0
 	LogTime = int(input('How many seconds do you want to datalog for?:	'))
@@ -66,7 +68,12 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 		LogCount = LogCount + 1
 		cls()
 		print('Hi CJ')
+		with open(file_name, 'a') as log:
+                log.write("{0},{1}\n".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"),str(current_temp)))
+		arg = sys.argv[1]
+		filename1 = str(arg) + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S")+".csv"
 		time.sleep(1) #Waits a second before looping, need to make a better way to do this.
+
 	print(LogCount)
 cls()
 FRun()
