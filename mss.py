@@ -12,6 +12,7 @@ today_date = date.today()
 current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
 today_date_time = datetime.now()
 current_date_time = today_date_time.strftime("%m/%d/%Y %I:%M%p") #Gets date and time and saves to var in 12 hour format
+current_time = today_date_time.strftime("%I:%M%p")
 def clear_screen():
     if name == 'nt': #Clear screen for windows
         _ = system('cls')
@@ -37,7 +38,7 @@ def MainStart():
 	print ('Today is', current_date_time)
 	print('----------------------------------------------')
 	print('1. Start Data Logging')#Run data logging session
-	print("2. Sensor Data") #Live Data From Sensors
+	print("2. Sensor Data - NOT WORKING") #Live Data From Sensors
 	#print("3. Settings") #Settings - TBD if needed
 	print('4. Exit') #Close Program
 	print ('----------------------------------------------')
@@ -47,7 +48,7 @@ def MainStart():
 		Start_DLS() #| In Progress... 
 	elif msi == 2:
 		print ("Loading...")
-		#sm()
+		#Start_sd()
 	elif msi == 3:
 		print ("Loading...")
     	#setng()
@@ -69,12 +70,15 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 		clear_screen()
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
-			f.write( str(current_date_time) + ': The current tempture is: ' + str(dls_temp) + ' F \n') #Writes current temp to new line
+			f.write( str(current_time) + ': The current tempture is: ' + str(dls_temp) + ' F \n') #Writes current temp to new line with time
 			print('Data logging in progress: ' + str(LogRemain) + (' seconds remaining in session.')) #Prints seconds left of DLS session
 			time.sleep(0.5) #Waits half second before looping
 	clear_screen()
 	print('Data logging session has completed, log saved as ' + DLS_FileName )
 	input('Press enter to return to main menu.')
 	MainStart()
+def Start_sd(): #Live sensor data menu, no logging IN PROGRESS!!
+	clear_screen
+	#
 clear_screen()
 FRun()
