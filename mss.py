@@ -68,11 +68,9 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 		LogCount = LogCount + 1
 		cls()
 		print('Hi CJ')
-		with open(file_name, 'a') as log:
-			log.write("{0},{1}\n".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"),str(current_temp)))
-			arg = sys.argv[1]
-			filename1 = str(arg) + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S")+".csv"
-			time.sleep(1) #Waits a second before looping, need to make a better way to do this.
+		f = open('%s.csv' % current_date,'w')
+		f.write('Tempture is', current_temp)
+		time.sleep(1) #Waits a second before looping, need to make a better way to do this.
 	print(LogCount)
 cls()
 FRun()
