@@ -14,11 +14,12 @@ from os import system
 #import os.name
 #import exists
 #from sense_hat import SenseHat
-#from datetime import datetime
+from datetime import date
+def current_date = date.today() #Gets date and saves to var
 def cls():
 	system('clear')
 def FRun(): #First time run check check, verifies config file is present
-	config_exists = os.path.exists('config.py') 
+	config_exists = os.path.exists('config.txt') 
 	if config_exists == True:
 		print(config_exists) #Debug
 		MainStart()
@@ -34,10 +35,11 @@ def ConfigSetup(): #Creates config file
 def MainStart():
 	cls()
 	print('Welcome to RIGS')
+	print ('Today is', current_date)
 	print('----------------------------------------------')
 	print('1. Start Data Logging')#Run data logging session
 	print("2. Sensor Data") #Live Data From Sensors
-	#print("3. Settings") #Not sure what settings will be needed yet...
+	#print("3. Settings") #Settings - TBD if needed
 	print('4. Exit') #Close Program
 	print ('----------------------------------------------')
 	msi = int(input('Enter number selection to proceed:  '))
@@ -59,7 +61,7 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 	cls()
 	LogCount = 0 #Loop timer
 	LogTime = 0
-	LogTime = int(input('How many seconds do you want to datalog for?	'))
+	LogTime = int(input('How many seconds do you want to datalog for?:	'))
 	while (LogCount < LogTime):   
 		LogCount = LogCount + 1
 		cls()
