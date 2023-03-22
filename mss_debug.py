@@ -16,6 +16,11 @@ from datetime import date
 from os import system, name
 #import exists
 from sense_hat import SenseHat
+#from prometheus_client import Gauge, start_http_server #For web server
+#web_port = 9090 #Web server port
+#start_http_server(web_port) #Web sever start
+#gt = Gauge('RIGS_temperature',
+#           'Temperature measured by the RIGS Sensor', ['scale'])
 sense = SenseHat()
 sense.clear()
 today_date = date.today()

@@ -1,6 +1,6 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
-# Build Date 3/21/2023
+# Build Date 3/22/2023
 # Build Ver. 0.5
 import os
 import time
@@ -9,11 +9,6 @@ from os import system
 from datetime import datetime
 from datetime import date
 from os import system, name
-#from prometheus_client import Gauge, start_http_server #For web server
-#web_port = 9090 #Web server port
-#start_http_server(web_port) #Web sever start
-#gt = Gauge('RIGS_temperature',
-#           'Temperature measured by the RIGS Sensor', ['scale'])
 today_date = date.today() #Sets todays date as the current date
 current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
 today_date_time = datetime.now()
@@ -44,7 +39,8 @@ def MainStart():
 	print ('Today is', current_date_time)
 	print('----------------------------------------------')
 	print('1. Start Data Logging')#Run data logging session
-	print("2. Sensor Data - NOT WORKING") #Live Data From Sensors
+	print("2. Automated data logging") #Live Data From Sensors
+	print("3. Live Sensor Data") #Live Data From Sensors
 	#print("3. Settings") #Settings - TBD if needed
 	print('4. Exit') #Close Program
 	print ('----------------------------------------------')
@@ -54,10 +50,10 @@ def MainStart():
 		Start_DLS() #Data logging to log file works, need to figure out sensor situation to implemnent actual data instead of static var
 	elif msi == 2:
 		print ("Loading...")
-		Start_sd()
+		Auto_DLS_Start()
 	elif msi == 3:
 		print ("Loading...")
-    	#setng()
+		Start_sd()
 	elif msi == 4: 
 		print ("Shuting down application")
 		exit() #Closes program
@@ -90,10 +86,7 @@ def Auto_DLS_Start(): #Automated DLS
 			if Auto_LogCount == 0:
 				clear_screen()
 				print("Automated data logging session has finished")
-				MainStart()
-
-		
-			
+				MainStart()	
 def Start_DLS(): #General Datalogging, will become menu later with abilty to define args, now for debuging
 	clear_screen()
 	dls_temp = 0 #Current temp
