@@ -69,7 +69,7 @@ def Auto_DLS_Start(): #Automated DLS
 	Auto_LogCount = 1 #How many times logging will occur, after log time has ended and after log interval is over
 	#NEED INPUT FOR ABOVE VARS - maybe here or somewhere else?
 	while Auto_LogTime_counter > 0:
-		Auto_LogTime_counter = Auto_LogTime_ounter - 1
+		Auto_LogTime_counter = Auto_LogTime_counter - 1
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
 			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + ' F \n') #Writes current temp to new line with time
@@ -86,7 +86,7 @@ def Auto_DLS_Start(): #Automated DLS
 			if Auto_LogCount == 0:
 				clear_screen()
 				print("Automated data logging session has finished")
-				MainStart()	
+				pause
 def Start_DLS(): #General Datalogging, will become menu later with abilty to define args, now for debuging
 	clear_screen()
 	dls_temp = 0 #Current temp
