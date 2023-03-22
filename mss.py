@@ -1,7 +1,7 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
-# Build Date 09/15/2022 
-# Build Ver. 0.1
+# Build Date 3/21/2023
+# Build Ver. 0.5
 #from signal import pause
 import subprocess
 import math
@@ -62,17 +62,16 @@ def MainStart():
 		MainStart()
 def Start_DLS(): #General Datalogging, will become menu later with abilty to define args, now for debuging
 	cls()
-	current_temp = 0 #Current temp
+	dls_temp = 0 #Current temp
 	LogCount = 0 #Loop timer
 	LogTime = 0
 	LogTime = int(input('How many seconds do you want to datalog for?:	'))
 	while (LogCount < LogTime):
-		current_temp = 0 #Current temp
 		LogCount = LogCount + 1
 		cls()
-		with open('test.txt', "a") as f: #Will need to be set to current date
-			f.write('The current tempture is: '(current_temp))
-			time.sleep(1) #Waits a second before looping, need to make a better way to do this.
+		with open('test.txt', "a") as f: #Will need to be set to current date will make sure new files are created
+			f.write( str(current_date_time) + ': The current tempture is: ' + str(dls_temp) + ' F \n') #Writes current temp to new line
+			time.sleep(0.5) #Waits half second before looping
 	print(LogCount)
 cls()
 FRun()
