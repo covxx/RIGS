@@ -69,7 +69,7 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 	while (LogCount < LogTime):   
 		LogCount = LogCount + 1
 		cls()
-		with open('test.txt', 'w'): #Will need to be set to current date
+		with open('test.txt', "w+"): #Will need to be set to current date
 			with open.write('Tempture is', current_temp):
 				time.sleep(1) #Waits a second before looping, need to make a better way to do this.
 	print(LogCount)
