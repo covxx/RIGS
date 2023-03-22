@@ -4,11 +4,17 @@
 # Build Ver. 0.5
 import os
 import time
+import logging
 from os import system
 from datetime import datetime
 from datetime import date
 from os import system, name
-today_date = date.today()
+from prometheus_client import Gauge, start_http_server #For web server
+web_port = 8000 #Web server port
+start_http_server(web_port) #Web sever start
+gt = Gauge('RIGS_temperature',
+           'Temperature measured by the RIGS Sensor', ['scale'])
+today_date = date.today() #Sets todays date as the current date
 current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
 today_date_time = datetime.now()
 current_date_time = today_date_time.strftime("%m/%d/%Y %I:%M%p") #Gets date and time and saves to var in 12 hour format
