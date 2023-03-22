@@ -51,10 +51,10 @@ def MainStart():
 	msi = int(input('Enter number selection to proceed:  '))
 	if msi == 1:
 		print ("Loading...")
-		Start_DLS() #| In Progress... 
+		Start_DLS() #Data logging to log file works, need to figure out sensor situation to implemnent actual data instead of static var
 	elif msi == 2:
 		print ("Loading...")
-		#Start_sd()
+		Start_sd()
 	elif msi == 3:
 		print ("Loading...")
     	#setng()
