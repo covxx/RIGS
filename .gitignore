@@ -6,3 +6,4 @@ GUI_test
 .DS_Store
 config.py
 test.txt
+*.txt

@@ -75,12 +75,14 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 		LogCount = LogCount + 1
 		LogRemain = LogRemain - 1
 		clear_screen()
-		DLS_FileName = (str(current_date))
-		print(DLS_FileName)
-		#with open('DLS_FileName+ '.txt', "a") as f: #Will need to be set to current date will make sure new files are created
-			#f.write( str(current_date_time) + ': The current tempture is: ' + str(dls_temp) + ' F \n') #Writes current temp to new line
-			#print('Data logging in progress ' + str(LogRemain) + (' seconds remaining of session.')) #Prints seconds left of DLS session
-			#time.sleep(0.5) #Waits half second before looping
-	print(LogCount)
+		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
+		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
+			f.write( str(current_date_time) + ': The current tempture is: ' + str(dls_temp) + ' F \n') #Writes current temp to new line
+			print('Data logging in progress: ' + str(LogRemain) + (' seconds remaining in session.')) #Prints seconds left of DLS session
+			time.sleep(0.5) #Waits half second before looping
+	clear_screen()
+	print('Data logging session has completed, log saved as ' + DLS_FileName )
+	input('Press enter to return to main menu.')
+	MainStart()
 clear_screen()
 FRun()
