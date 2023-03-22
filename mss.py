@@ -90,6 +90,7 @@ def Start_sd(): #Live sensor data menu, no logging IN PROGRESS!!
 		while True:
 			print("Sensor data will be shown below, to exit press any key.")
 			print(current_date_time, ': The current tempture is: ', sd_temp) #Prints current date and time with tempture, loops till anykey
+			time.sleep(1.0) #Matrix wall without
 	except KeyboardInterrupt:
 			print("Session has been ended, returning to main lobby..")
 			MainStart()
