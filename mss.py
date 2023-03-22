@@ -18,7 +18,7 @@ from datetime import datetime
 today_date = datetime.now()
 current_date = today_date.strftime("%d/%m/%Y %H:%M:%S") #Gets date and saves to var
 today_date_time = datetime.now()
-current_date_time = today_date_time.strftime("%d/%m/%Y %H:%M:%S") #Gets date and saves to var
+current_date_time = today_date_time.strftime("%d/%m/%Y %H:%M:%S") #Gets date and time and saves to var
 def cls():
 	system('clear')
 def FRun(): #First time run check check, verifies config file is present
@@ -69,8 +69,8 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 	while (LogCount < LogTime):   
 		LogCount = LogCount + 1
 		cls()
-		print('Hi CJ')
-		f = open('%s.csv' % current_date,'w')
+		#print('Hi CJ')
+		f = open(current_date + ".csv", 'w')
 		f.write('Tempture is', current_temp)
 		time.sleep(1) #Waits a second before looping, need to make a better way to do this.
 	print(LogCount)
