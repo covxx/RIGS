@@ -66,7 +66,8 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 	LogCount = 0 #Loop timer
 	LogTime = 0
 	LogTime = int(input('How many seconds do you want to datalog for?:	'))
-	while (LogCount < LogTime):   
+	while (LogCount < LogTime):
+		current_temp = 0 #Current temp
 		LogCount = LogCount + 1
 		cls()
 		with open('test.txt', "a") as f: #Will need to be set to current date
