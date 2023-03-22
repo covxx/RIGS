@@ -70,9 +70,9 @@ def Start_DLS(): #General Datalogging, will become menu later with abilty to def
 		LogCount = LogCount + 1
 		cls()
 		#print('Hi CJ')
-		with open(current_date + '.txt', 'w')
-		f.write('Tempture is', current_temp)
-		time.sleep(1) #Waits a second before looping, need to make a better way to do this.
+		with open(current_date + '.txt', 'w'):
+			with open.write('Tempture is', current_temp):
+			time.sleep(1) #Waits a second before looping, need to make a better way to do this.
 	print(LogCount)
 cls()
 FRun()
