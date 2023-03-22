@@ -60,7 +60,7 @@ def MainStart():
 	else:
 		MainStart()
 def Auto_DLS_Start(): #Automated DLS
-	clear_screen()
+	#clear_screen()
 	Auto_dls_temp = 0 #Var for temp, auto hold
 	Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
@@ -79,14 +79,14 @@ def Auto_DLS_Start(): #Automated DLS
 			Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count
 			Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
 			while Auto_LogCount > 0:
-				clear_screen()
+				#clear_screen()
 				Auto_LogInterval_Counter = Auto_LogInterval_Counter - 1
 				print("Automated data logging session has finished, next session starts in ", Auto_LogInterval, " seconds.")
 				time.sleep(0.5) #Wait
 			if Auto_LogCount == 0:
-				clear_screen()
+				#clear_screen()
 				print("Automated data logging session has finished")
-				pause
+				time.sleep(40) #DEBUGGG
 def Start_DLS(): #General Datalogging, will become menu later with abilty to define args, now for debuging
 	clear_screen()
 	dls_temp = 0 #Current temp
