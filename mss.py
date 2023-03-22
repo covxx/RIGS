@@ -61,8 +61,8 @@ def MainStart():
 		MainStart()
 def Auto_DLS_Start(): #Automated DLS
 	#clear_screen()
-	Auto_dls_temp = 0 #Var for temp, auto hold
-	Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
+	Auto_dls_temp = 2 #Var for temp, auto hold
+	Auto_LogTime = 15 #Logtime for automated logging, user will need to set 
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval = 0 #How long till data logging starts
 	Auto_LogInterval_Counter = Auto_LogInterval #counter
