@@ -93,6 +93,7 @@ def Start_sd(): #Live sensor data menu, no logging IN PROGRESS!!
 			time.sleep(1.0) #Matrix wall without
 	except KeyboardInterrupt:
 			print("Session has been ended, returning to main lobby..")
+			time.sleep(3.0) #Sleep for message to display, yes making it slower on purpose
 			MainStart()
 		
 clear_screen()
