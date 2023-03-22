@@ -5,7 +5,6 @@
 import os
 import time
 import logging
-import keyboard
 from os import system
 from datetime import datetime
 from datetime import date
