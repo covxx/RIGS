@@ -15,7 +15,7 @@ from os import system
 #import exists
 #from sense_hat import SenseHat
 from datetime import date
-current_date = date.today() #Gets date and saves to var
+current_date = date.strftime("%m/%d/%y") #Gets date and saves to var
 def cls():
 	system('clear')
 def FRun(): #First time run check check, verifies config file is present
