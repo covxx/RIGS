@@ -82,7 +82,7 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	print(Auto_LogInterval)
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval_Counter = Auto_LogInterval #counter
-	while Auto_LogTime_counter > 0:
+	while Auto_LogTime_counter != 0:
 		Auto_LogTime_counter = Auto_LogTime_counter - 1
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
