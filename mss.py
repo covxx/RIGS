@@ -1,6 +1,6 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
-# Build Date 3/22/2023
+# Build Date 3/23/2023
 # Build Ver. 0.5
 import os
 import time
@@ -19,11 +19,11 @@ current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
 today_date_time = datetime.now()
 current_date_time = today_date_time.strftime("%m/%d/%Y %I:%M%p") #Gets date and time and saves to var in 12 hour format
 current_time = today_date_time.strftime("%I:%M%p")
-from prometheus_client import Gauge, start_http_server #For web server
-web_port = 9090 #Web server port
-start_http_server(web_port) #Web sever start
-gt = Gauge('RIGS_temperature',
-           'Temperature measured by the RIGS Sensor', ['scale'])
+#from prometheus_client import Gauge, start_http_server #For web server
+#web_port = 9090 #Web server port
+#start_http_server(web_port) #Web sever start
+#gt = Gauge('RIGS_temperature',
+#           'Temperature measured by the RIGS Sensor', ['scale'])
 def clear_screen():
     if name == 'nt': #Clear screen for windows
         _ = system('cls')
@@ -70,6 +70,7 @@ def MainStart():
 	else:
 		MainStart()
 def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
+	Auto_dls_temp = 1
 	clear_screen()
 	print('RIGS Automated Data logging Setup')
 	print('------------------------------------')
@@ -79,6 +80,32 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	print(Auto_LogTime)
 	print(Auto_LogCount)
 	print(Auto_LogInterval)
+	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
+	Auto_LogInterval_Counter = Auto_LogInterval #counter
+	while Auto_LogTime_counter > 0:
+		Auto_LogTime_counter = Auto_LogTime_counter - 1
+		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
+		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
+			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + ' F \n') #Writes current temp to new line with time
+			print('Data logging in progress: ' + str(Auto_LogTime_counter) + (' seconds remaining in session.')) #Prints seconds left of DLS session
+			time.sleep(0.5) #Waits half second before looping
+		if Auto_LogTime_counter == 0: #Once session has finished	
+			Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count
+			Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
+			while Auto_LogCount != 0 and Auto_LogInterval_Counter != 0:
+				#clear_screen()
+				print(str(Auto_LogInterval_Counter))
+				Auto_LogInterval_Counter = Auto_LogInterval_Counter - 1
+				print("Automated data logging session has finished, next session starts in ", Auto_LogInterval_Counter, " seconds.")
+				time.sleep(2.0) #Wait
+			if Auto_LogInterval_Counter == 0:
+				Auto_DLS_Start()
+			if Auto_LogCount == 0:
+				#clear_screen()
+				print("Automated data logging session has finished")
+				print(str(Auto_LogCount)) #Debug
+				print(str(Auto_LogInterval)) #Debug
+				time.sleep(40) #DEBUGGG
 	()
 def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	#clear_screen()
