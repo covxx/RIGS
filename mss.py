@@ -36,7 +36,7 @@ def ConfigSetup(): #Creates config file
 	clear_screen()
 	print('Welcome to RIGS')
 	print('Please wait, preforming first time setup...')
-	with open('config.py', 'w'): pass
+	with open('config.txt', 'w'): pass
 	MainStart()
 def MainStart():
 	clear_screen()
@@ -74,7 +74,7 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	print(Auto_LogTime)
 	print(Auto_LogCount)
 	print(Auto_LogInterval)
-	Auto_DLS_Start()
+	()
 def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	#clear_screen()
 	Auto_dls_temp = 0 #Var for temp, auto hold
