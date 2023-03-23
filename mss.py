@@ -13,6 +13,10 @@ global Auto_TotalRun_Counter
 global Auto_LogCount
 global Auto_LogTime
 global Auto_LogInterval
+global b_ver
+global Auto_LogCount_save
+b_ver = ("v0.5 3_23_2023")
+Auto_LogCount_save = 0
 Auto_TotalRun_Counter = 0
 Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
 Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
@@ -51,7 +55,7 @@ def ConfigSetup(): #Creates config file
 def MainStart():
 	clear_screen()
 	print('Welcome to RIGS')
-	print ('Today is', current_date_time)
+	print ('Today is', current_date_time, " | ", b_ver)
 	print('----------------------------------------------')
 	print('1. Start Data Logging')#Run data logging session
 	print("2. Automated data logging") #Live Data From Sensors
@@ -80,6 +84,7 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	global Auto_LogInterval
 	global Auto_LogTime_counter
 	global Auto_LogInterval_Counter
+	global Auto_LogCount_save
 	Auto_dls_temp = 1
 	clear_screen()
 	print('RIGS Automated Data logging Setup')
@@ -92,14 +97,16 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	print(Auto_LogInterval)
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval_Counter = Auto_LogInterval #counter
+	Auto_LogCount_save = Auto_LogCount_save + Auto_LogCount
 	Auto_DLS_Start() #Lets go
 def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
+	clear_screen()
 	global Auto_LogCount #How many tests to run
 	global Auto_LogTime #How long tests run for
 	global Auto_LogInterval #How long inbetween tests
 	global Auto_LogTime_counter
 	global Auto_LogInterval_Counter
-	clear_screen()
+	global Auto_LogCount_save
 	Auto_dls_temp = 5 #Var for temp, auto hold
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval_Counter = Auto_LogInterval #counter for how many tests to run
@@ -125,7 +132,7 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 				Auto_DLS_Start()
 		if Auto_LogCount == 0:
 			clear_screen()
-			print("All testing has completed, software has ran ", Auto_LogCount, "tests. For a complete run time of ", Auto_TotalRun_Counter)
+			print("All testing has completed, software has ran ", Auto_LogCount_save, "tests. For a complete run time of ", Auto_TotalRun_Counter)
 			print("Debug 5")
 			time.sleep(3.0) #Debug
 			MainStart()
