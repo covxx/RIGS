@@ -19,6 +19,11 @@ current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
 today_date_time = datetime.now()
 current_date_time = today_date_time.strftime("%m/%d/%Y %I:%M%p") #Gets date and time and saves to var in 12 hour format
 current_time = today_date_time.strftime("%I:%M%p")
+from prometheus_client import Gauge, start_http_server #For web server
+web_port = 9090 #Web server port
+start_http_server(web_port) #Web sever start
+gt = Gauge('RIGS_temperature',
+           'Temperature measured by the RIGS Sensor', ['scale'])
 def clear_screen():
     if name == 'nt': #Clear screen for windows
         _ = system('cls')
