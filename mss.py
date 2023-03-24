@@ -18,6 +18,9 @@ global Auto_LogTime
 global Auto_LogInterval
 global b_ver
 global Auto_LogCount_save
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using :0.0')
+    os.environ.__setitem__('DISPLAY', ':0.0')
 GUI = tk.Tk() #TKinter for GUI
 GUI.iconphoto(False, tk.PhotoImage(file='rigs.png'))
 GUI.iconbitmap("rigs.png") #Sets icon for window
