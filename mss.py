@@ -9,13 +9,20 @@ from os import system
 from datetime import datetime
 from datetime import date
 from os import system, name
+import tkinter as tk
+from tkinter import simpledialog
+global GUI
 global Auto_TotalRun_Counter
 global Auto_LogCount
 global Auto_LogTime
 global Auto_LogInterval
 global b_ver
 global Auto_LogCount_save
-b_ver = ("v0.5 3_23_2023")
+GUI = tk.Tk() #TKinter for GUI
+GUI.iconphoto(False, tk.PhotoImage(file='rigs.png'))
+GUI.iconbitmap("rigs.png") #Sets icon for window
+GUI.withdraw() #Removes TK window before it begins
+b_ver = ("v0.5 3_24_2023")
 Auto_LogCount_save = 0
 Auto_TotalRun_Counter = 0
 Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
@@ -79,6 +86,7 @@ def MainStart():
 	else:
 		MainStart()
 def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
+	global GUI
 	global Auto_LogCount
 	global Auto_LogTime
 	global Auto_LogInterval
@@ -89,15 +97,24 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	clear_screen()
 	print('RIGS Automated Data logging Setup')
 	print('------------------------------------')
-	Auto_LogTime = int(input('Enter how long would you like to data log for? (in seconds): '))
-	Auto_LogInterval = int(input("Enter how long between data logging sessions, in seconds?: "))
-	Auto_LogCount = int(input('Enter how many times would you like to data log? (1-10): '))
-	print(Auto_LogTime)
-	print(Auto_LogCount)
-	print(Auto_LogInterval)
+	Auto_LogTime = simpledialog.askinteger(title="RIGS Automated Testing",
+				       							prompt="How Long in seconds would you like to data log for? ")
+	Auto_LogInterval = simpledialog.askinteger(title="RIGS Automated Testing",
+				       							prompt="Enter how long between data logging sessions, in seconds? ")
+	Auto_LogCount = simpledialog.askinteger(title="RIGS Automated Testing",
+				       							prompt="Enter how many times would you like to data log? ")
+	#Auto_LogTime = int(input('Enter how long would you like to data log for? (in seconds): '))
+	#Auto_LogInterval = int(input("Enter how long between data logging sessions, in seconds?: "))
+	#Auto_LogCount = int(input('Enter how many times would you like to data log? (1-10): '))
+	#print(Auto_LogTime)
+	#print(Auto_LogCount)
+	#print(Auto_LogInterval)
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval_Counter = Auto_LogInterval #counter
 	Auto_LogCount_save = Auto_LogCount_save + Auto_LogCount
+	DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Adds session details to file
+	with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
+			f.write( str(current_time) + ': Each test will run for: ' + str(Auto_LogTime) + ' seconds. Tests will run ' + str(Auto_LogInterval) + ' seconds after the last. Total amount of tests to run is ' + str(Auto_LogCount) + ' \n') #Writes sessions details before session starts
 	Auto_DLS_Start() #Lets go
 def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	clear_screen()
@@ -119,22 +136,22 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 			Auto_LogTime_counter = (Auto_LogTime_counter - 1)
 		while (Auto_LogTime_counter == 0 and Auto_LogInterval_Counter > 0):
 			clear_screen()
-			print("DEBUG 4")
-			print(str(Auto_LogInterval_Counter))
+			#print("DEBUG 4") #DEBUG
+			#print(str(Auto_LogInterval_Counter)) #DEBUG
 			Auto_LogInterval_Counter = (Auto_LogInterval_Counter - 1)
 			print("Automated data logging session has finished, next session starts in ", Auto_LogInterval_Counter, " seconds.")
 			time.sleep(2.0) #Wait
 			if Auto_LogTime_counter == 0 and Auto_LogInterval_Counter == 0:
-				print("DEBUG 5")
-				time.sleep(3.0) #Debug
+				#print("DEBUG 5") #DEBUG
+				#time.sleep(3.0) #DEBUG
 				Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count
 				Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
 				Auto_DLS_Start()
 		if Auto_LogCount == 0:
 			clear_screen()
 			print("All testing has completed, software has ran ", Auto_LogCount_save, "tests. For a complete run time of ", Auto_TotalRun_Counter)
-			print("Debug 5")
-			time.sleep(3.0) #Debug
+			#print("Debug 6")
+			time.sleep(3.0) #DEBUG
 			MainStart()
 def Start_DLS(): #General Datalogging, will become menu later with abilty to define args, now for debuging
 	clear_screen()
