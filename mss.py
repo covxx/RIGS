@@ -21,6 +21,7 @@ global Auto_LogCount_save
 GUI = tk.Tk() #TKinter for GUI
 GUI.iconphoto(False, tk.PhotoImage(file='rigs.png'))
 GUI.iconbitmap("rigs.png") #Sets icon for window
+GUI.title("RIGS - Automated data logging")
 GUI.withdraw() #Removes TK window before it begins
 b_ver = ("v0.5 3_24_2023")
 Auto_LogCount_save = 0
