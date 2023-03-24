@@ -118,7 +118,7 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 			time.sleep(0.5) #Waits half second before looping
 			Auto_LogTime_counter = (Auto_LogTime_counter - 1)
 		while (Auto_LogTime_counter == 0 and Auto_LogInterval_Counter > 0):
-			#clear_screen()
+			clear_screen()
 			print("DEBUG 4")
 			print(str(Auto_LogInterval_Counter))
 			Auto_LogInterval_Counter = (Auto_LogInterval_Counter - 1)
