@@ -134,6 +134,7 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval_Counter = Auto_LogInterval #counter for how many tests to run
 	while (Auto_LogTime_counter != 0 and Auto_LogInterval_Counter != 0):
+		clear_screen()
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
 			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + ' F \n') #Writes current temp to new line with time
