@@ -1,6 +1,6 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
-# Build Date 3/23/2023
+# Build Date 3/26/2023
 # Build Ver. 0.5
 import os
 import time
@@ -21,12 +21,7 @@ global Auto_LogCount_save
 if os.environ.get('DISPLAY','') == '': #DEBUG for SSH testing
     print('no display found. Using :0.0') #DEBUG for SSH testing
     os.environ.__setitem__('DISPLAY', ':0.0') #DEBUG for SSH testing
-#GUI.title("RIGS - Automated data logging") #GUI Window Name
-#if "nt" == os.name: #Cross platform bitmaps
-#    GUI.wm_iconbitmap(bitmap = "rigs.ico")
-#else:
-#    GUI.wm_iconbitmap(bitmap = "@rigs.xbm")
-b_ver = ("v0.5 3_25_2023")
+b_ver = ("v0.5 3_26_2023") #Bulid verison, used for GUI
 Auto_LogCount_save = 0
 Auto_TotalRun_Counter = 0
 Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
@@ -90,7 +85,7 @@ def MainStart():
 	else:
 		MainStart()
 def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
-	global GUI
+	global window
 	global Auto_LogCount
 	global Auto_LogTime
 	global Auto_LogInterval
@@ -131,6 +126,126 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	Auto_dls_temp = 5 #Var for temp, auto hold
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval_Counter = Auto_LogInterval #counter for how many tests to run
+	canvas = Canvas(
+    window,
+    bg = "#FFFFFF",
+    height = 408,
+    width = 469,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge"
+	)
+	canvas.place(x = 0, y = 0)
+	image_image_1 = PhotoImage(
+	    file=relative_to_assets("image_1.png"))
+	image_1 = canvas.create_image(
+    	234.0,
+    	102.0,
+    	image=image_image_1
+	)
+	canvas.create_rectangle(
+    	132.0,
+    	185.0,
+    	323.0,
+    	186.0,
+    	fill="#000000",
+    	outline="")
+	canvas.create_rectangle(
+    	118.0,
+    	53.0,
+    	348.0,
+    	54.0,
+    	fill="#000000",
+    	outline="")
+	canvas.create_text(
+	    139.0,
+	    393.0,
+	    anchor="nw",
+	    text="Copyright 2023 Christian Jensen",
+    	fill="#000000",
+    	font=("Inter", 12 * -1)
+	)
+	canvas.create_text(
+    	151.0,
+    	375.0,
+    	anchor="nw",
+    	text="Licensed for: Palumbo Foods",
+    	fill="#000000",
+    	font=("Inter", 12 * -1)
+	)
+	button_image_1 = PhotoImage(
+    	file=relative_to_assets("button_1.png"))
+	button_1 = Button(
+	    image=button_image_1,
+    	borderwidth=0,
+    	highlightthickness=0,
+    	command=lambda: print("button_1 clicked"),
+    	relief="flat"
+	)
+	button_1.place(
+    	x=185.0,
+    	y=316.0,
+    	width=96.0,
+    	height=23.0
+	)
+	canvas.create_text(
+	    138.0,
+    	36.0,
+    	anchor="nw",
+    	text="Automated data logging software",
+    	fill="#000000",
+    	font=("Inter", 12 * -1)
+	)
+	canvas.create_text(
+	    221.0,
+	    20.0,
+	    anchor="nw",
+	    text="RIGS",
+	    fill="#000000",
+	    font=("Inter", 12 * -1)
+	)
+	canvas.create_text(
+	    7.0,
+	    8.0,
+	    anchor="nw",
+    	text=b_ver,
+	    fill="#000000",
+    	font=("Inter", 12 * -1)
+	)
+	canvas.create_text(
+	    185.0,
+    	198.0,
+    	anchor="nw",
+    	text="PROGRESS_BAR",
+    	fill="#000000",
+    	font=("Inter", 12 * -1)
+	)
+	canvas.create_text(
+	    57.0,
+	    248.0,
+	    anchor="nw",
+	    text="Time Remaining:",
+	    fill="#000000",
+	    font=("Inter", 12 * -1)
+	)
+	canvas.create_text(
+	    57.0,
+	    281.0,
+	    anchor="nw",
+	    text="Test Cycle:",
+	    fill="#000000",
+	    font=("Inter", 12 * -1)
+	)
+	canvas.create_text(
+    	154.0,
+	    168.0,
+    	anchor="nw",
+    	text="Automated Test In Progress",
+    	fill="#000000",
+    	font=("Inter", 12 * -1)
+	)
+	window.resizable(False, False)
+	window.mainloop()
 	while (Auto_LogTime_counter != 0 and Auto_LogInterval_Counter != 0):
 		clear_screen()
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
@@ -197,7 +312,14 @@ OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\JENS3\OneDrive\Desktop\RIGS\assets\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
 window = Tk()
+window.title("RIGS - Automated Data Logging") #GUI Window Name
+if "nt" == os.name: #Cross platform bitmaps
+    window.wm_iconbitmap(bitmap = r"C:\Users\JENS3\OneDrive\Desktop\RIGS\assets\rigs.ico")
+else:
+    window.wm_iconbitmap(bitmap = r"C:\Users\JENS3\OneDrive\Desktop\RIGS\assets\@rigs.xbm")
 window.geometry("469x408")
 window.configure(bg = "#FFFFFF")
 canvas = Canvas(
@@ -209,7 +331,6 @@ canvas = Canvas(
     highlightthickness = 0,
     relief = "ridge"
 )
-
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
@@ -218,23 +339,37 @@ image_1 = canvas.create_image(
     102.0,
     image=image_image_1
 )
-
+canvas.create_text(
+    135.0,
+    393.0,
+    anchor="nw",
+    text="Copyright 2023 Christian Jensen",
+    fill="#000000",
+    font=("Inter", 12 * -1)
+)
+canvas.create_text(
+    146.0,
+    378.0,
+    anchor="nw",
+    text="Licensed for: Palumbo Foods",
+    fill="#000000",
+    font=("Inter", 12 * -1)
+)
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: Auto_DLS_PreStart(), # print("button_1 clicked"),
     relief="flat"
 )
 button_1.place(
-    x=180.0,
-    y=260.0,
+    x=35.0,
+    y=166.0,
     width=96.0,
     height=23.0
 )
-
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 button_2 = Button(
@@ -245,30 +380,11 @@ button_2 = Button(
     relief="flat"
 )
 button_2.place(
-    x=35.0,
+    x=177.0,
     y=166.0,
-    width=96.0,
+    width=115.0,
     height=23.0
 )
-
-canvas.create_text(
-    141.0,
-    393.0,
-    anchor="nw",
-    text="Copyright 2023 Christian Jensen",
-    fill="#000000",
-    font=("Inter", 12 * -1)
-)
-
-canvas.create_text(
-    152.0,
-    378.0,
-    anchor="nw",
-    text="Licensed for: Palumbo Foods",
-    fill="#000000",
-    font=("Inter", 12 * -1)
-)
-
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 button_3 = Button(
@@ -279,12 +395,11 @@ button_3 = Button(
     relief="flat"
 )
 button_3.place(
-    x=177.0,
+    x=337.0,
     y=166.0,
-    width=115.0,
+    width=96.0,
     height=23.0
 )
-
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
 button_4 = Button(
@@ -295,12 +410,11 @@ button_4 = Button(
     relief="flat"
 )
 button_4.place(
-    x=337.0,
-    y=166.0,
+    x=180.0,
+    y=216.0,
     width=96.0,
     height=23.0
 )
-
 button_image_5 = PhotoImage(
     file=relative_to_assets("button_5.png"))
 button_5 = Button(
@@ -312,30 +426,41 @@ button_5 = Button(
 )
 button_5.place(
     x=180.0,
-    y=216.0,
+    y=260.0,
     width=96.0,
     height=23.0
 )
-
 canvas.create_text(
-    138.0,
-    22.0,
+    139.0,
+    36.0,
     anchor="nw",
-    text="Welcome to RIGS\n Automated data logging software",
+    text="Automated data logging software",
     fill="#000000",
     font=("Inter", 12 * -1)
 )
-
 canvas.create_text(
-    369.0,
-    390.0,
+    5.0,
+    9.0,
     anchor="nw",
-    text="v0.5_3_24_2023",
+    text=b_ver,
     fill="#000000",
     font=("Inter", 12 * -1)
 )
+canvas.create_text(
+    220.0,
+    20.0,
+    anchor="nw",
+    text="RIGS",
+    fill="#000000",
+    font=("Inter", 12 * -1)
+)
+canvas.create_rectangle(
+    118.0,
+    53.0,
+    348.0,
+    54.0,
+    fill="#000000",
+    outline="")
 window.resizable(False, False)
 window.mainloop()
 clear_screen()
-FRun()
-
