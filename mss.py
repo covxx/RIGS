@@ -9,8 +9,8 @@ from os import system
 from datetime import datetime
 from datetime import date
 from os import system, name
-import tkinter as tk
-from tkinter import simpledialog
+from tkinter import simpledialog, Tk, Canvas, Entry, Text, PhotoImage, Button
+from pathlib import Path
 global GUI
 global Auto_TotalRun_Counter
 global Auto_LogCount
@@ -19,16 +19,14 @@ global Auto_LogInterval
 global b_ver
 global Auto_LogCount_save
 if os.environ.get('DISPLAY','') == '': #DEBUG for SSH testing
-    print('no display found. Using :0.0')
-    os.environ.__setitem__('DISPLAY', ':0.0')
-GUI = tk.Tk() #TKinter for GUI
-GUI.title("RIGS - Automated data logging") #GUI Window Name
-if "nt" == os.name: #Cross platform bitmaps
-    GUI.wm_iconbitmap(bitmap = "rigs.ico")
-else:
-    GUI.wm_iconbitmap(bitmap = "@rigs.xbm")
-GUI.withdraw() #Removes TK window before it begins
-b_ver = ("v0.5 3_24_2023")
+    print('no display found. Using :0.0') #DEBUG for SSH testing
+    os.environ.__setitem__('DISPLAY', ':0.0') #DEBUG for SSH testing
+#GUI.title("RIGS - Automated data logging") #GUI Window Name
+#if "nt" == os.name: #Cross platform bitmaps
+#    GUI.wm_iconbitmap(bitmap = "rigs.ico")
+#else:
+#    GUI.wm_iconbitmap(bitmap = "@rigs.xbm")
+b_ver = ("v0.5 3_25_2023")
 Auto_LogCount_save = 0
 Auto_TotalRun_Counter = 0
 Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
@@ -139,7 +137,7 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
 			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + ' F \n') #Writes current temp to new line with time
 			print('Data logging in progress: ' + str(Auto_LogTime_counter) + (' seconds remaining in session.')) #Prints seconds left of DLS session
-			time.sleep(0.5) #Waits half second before looping
+			time.sleep(1.0) #Waits half second before looping
 			Auto_LogTime_counter = (Auto_LogTime_counter - 1)
 		while (Auto_LogTime_counter == 0 and Auto_LogInterval_Counter > 0):
 			clear_screen()
@@ -195,5 +193,149 @@ def Start_sd(): #Live sensor data menu, no logging | IN PROGRESS
 			print("Session has been ended, returning to main menu..")
 			time.sleep(3.0) #Sleep for message to display, yes making it slower on purpose
 			MainStart() #Back to menu
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\JENS3\OneDrive\Desktop\RIGS\assets\frame0")
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
+window = Tk()
+window.geometry("469x408")
+window.configure(bg = "#FFFFFF")
+canvas = Canvas(
+    window,
+    bg = "#FFFFFF",
+    height = 408,
+    width = 469,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge"
+)
+
+canvas.place(x = 0, y = 0)
+image_image_1 = PhotoImage(
+    file=relative_to_assets("image_1.png"))
+image_1 = canvas.create_image(
+    234.0,
+    102.0,
+    image=image_image_1
+)
+
+button_image_1 = PhotoImage(
+    file=relative_to_assets("button_1.png"))
+button_1 = Button(
+    image=button_image_1,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_1 clicked"),
+    relief="flat"
+)
+button_1.place(
+    x=180.0,
+    y=260.0,
+    width=96.0,
+    height=23.0
+)
+
+button_image_2 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+button_2 = Button(
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_2 clicked"),
+    relief="flat"
+)
+button_2.place(
+    x=35.0,
+    y=166.0,
+    width=96.0,
+    height=23.0
+)
+
+canvas.create_text(
+    141.0,
+    393.0,
+    anchor="nw",
+    text="Copyright 2023 Christian Jensen",
+    fill="#000000",
+    font=("Inter", 12 * -1)
+)
+
+canvas.create_text(
+    152.0,
+    378.0,
+    anchor="nw",
+    text="Licensed for: Palumbo Foods",
+    fill="#000000",
+    font=("Inter", 12 * -1)
+)
+
+button_image_3 = PhotoImage(
+    file=relative_to_assets("button_3.png"))
+button_3 = Button(
+    image=button_image_3,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_3 clicked"),
+    relief="flat"
+)
+button_3.place(
+    x=177.0,
+    y=166.0,
+    width=115.0,
+    height=23.0
+)
+
+button_image_4 = PhotoImage(
+    file=relative_to_assets("button_4.png"))
+button_4 = Button(
+    image=button_image_4,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_4 clicked"),
+    relief="flat"
+)
+button_4.place(
+    x=337.0,
+    y=166.0,
+    width=96.0,
+    height=23.0
+)
+
+button_image_5 = PhotoImage(
+    file=relative_to_assets("button_5.png"))
+button_5 = Button(
+    image=button_image_5,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_5 clicked"),
+    relief="flat"
+)
+button_5.place(
+    x=180.0,
+    y=216.0,
+    width=96.0,
+    height=23.0
+)
+
+canvas.create_text(
+    138.0,
+    22.0,
+    anchor="nw",
+    text="Welcome to RIGS\n Automated data logging software",
+    fill="#000000",
+    font=("Inter", 12 * -1)
+)
+
+canvas.create_text(
+    369.0,
+    390.0,
+    anchor="nw",
+    text="v0.5_3_24_2023",
+    fill="#000000",
+    font=("Inter", 12 * -1)
+)
+window.resizable(False, False)
+window.mainloop()
 clear_screen()
 FRun()
+
