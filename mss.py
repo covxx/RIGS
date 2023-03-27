@@ -1,16 +1,18 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
-# Build Date 3/26/2023
+# Build Date 3/27/2023
 # Build Ver. 0.5
 import os
 import time
 import logging
+from threading import * #Needed for GUL + program to run at same time
 from os import system
 from datetime import datetime
 from datetime import date
 from os import system, name
 from tkinter import simpledialog, Tk, Canvas, Entry, Text, PhotoImage, Button
 from pathlib import Path
+global comp_usage
 global GUI
 global Auto_TotalRun_Counter
 global Auto_LogCount
@@ -18,10 +20,13 @@ global Auto_LogTime
 global Auto_LogInterval
 global b_ver
 global Auto_LogCount_save
+global Prog_TRun
 if os.environ.get('DISPLAY','') == '': #DEBUG for SSH testing
     print('no display found. Using :0.0') #DEBUG for SSH testing
     os.environ.__setitem__('DISPLAY', ':0.0') #DEBUG for SSH testing
 b_ver = ("v0.5 3_26_2023") #Bulid verison, used for GUI
+Prog_TRun = 0 #Program total run time (used for threading and progress bar TBD)
+comp_usage = "Palumbo Foods"
 Auto_LogCount_save = 0
 Auto_TotalRun_Counter = 0
 Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
@@ -39,6 +44,14 @@ current_time = today_date_time.strftime("%I:%M%p")
 #start_http_server(web_port) #Web sever start
 #gt = Gauge('RIGS_temperature',
 #           'Temperature measured by the RIGS Sensor', ['scale'])
+def Thread_ADLS(): #Auto_Data_Logging thread call, so tkinter window and code run
+	t1=Thread(target=Auto_DLS_Start_prog)
+	t1.start()
+def Thread_Test():
+	x = 0
+	while x < 50000:
+		x = x + 10
+		print(x)
 def clear_screen():
     if name == 'nt': #Clear screen for windows
         _ = system('cls')
@@ -86,20 +99,22 @@ def MainStart():
 		MainStart()
 def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	global window
-	global Auto_LogCount
+	global Auto_LogCount 
 	global Auto_LogTime
 	global Auto_LogInterval
 	global Auto_LogTime_counter
 	global Auto_LogInterval_Counter
-	global Auto_LogCount_save
+	global Auto_LogCount_save #Saving log count for times around the sun
+	global Auto_dls_temp #Temp place holder 
+	global Prog_TRun #Total program run time
 	Auto_dls_temp = 1
 	clear_screen()
 	print('RIGS Automated Data logging Setup')
 	print('------------------------------------')
 	Auto_LogTime = simpledialog.askinteger(title="RIGS Automated Testing",
-				       							prompt="How Long in seconds would you like to data log for? ")
+				       							prompt="How Long would you like to data log for, in nminutes? ")
 	Auto_LogInterval = simpledialog.askinteger(title="RIGS Automated Testing",
-				       							prompt="Enter how long between data logging sessions, in seconds? ")
+				       							prompt="Enter how long between data logging sessions, in minutes? ")
 	Auto_LogCount = simpledialog.askinteger(title="RIGS Automated Testing",
 				       							prompt="Enter how many times would you like to data log? ")
 	#Auto_LogTime = int(input('Enter how long would you like to data log for? (in seconds): '))
@@ -108,21 +123,34 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	#print(Auto_LogTime)
 	#print(Auto_LogCount)
 	#print(Auto_LogInterval)
-	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
-	Auto_LogInterval_Counter = Auto_LogInterval #counter
-	Auto_LogCount_save = Auto_LogCount_save + Auto_LogCount
+	#print(Prog_TRun) #DEBUG 9
+	#print("DEBUG 9") #Debug 9
+	#time.sleep(25.0) #Debug 9
+	Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime * 60 #Counter for logging, able to be reset and preserve data
+	Auto_LogInterval_Counter = Auto_LogInterval_Counter + Auto_LogInterval * 60 #counter
+	Prog_TRun = Prog_TRun + Auto_LogTime_counter + Auto_LogInterval_Counter * Auto_LogCount
+	print(Auto_LogTime_counter)
+	print(Auto_LogInterval_Counter)
+	print(Prog_TRun)
+	time.sleep(20)
+	Auto_LogCount_save = (Auto_LogCount_save + Auto_LogCount)
 	DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Adds session details to file
 	with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
-			f.write( str(current_time) + ': Each test will run for: ' + str(Auto_LogTime) + ' seconds. Tests will run ' + str(Auto_LogInterval) + ' seconds after the last. Total amount of tests to run is ' + str(Auto_LogCount) + ' \n') #Writes sessions details before session starts
+			f.write("New data logging session start at " + str(current_time) + ': Each test will run for: ' + str(Auto_LogTime) + ' seconds. Tests will run ' + str(Auto_LogInterval) + ' seconds after the last. Total amount of tests to run is ' + str(Auto_LogCount) + ' \n') #Writes sessions details before session starts
 	Auto_DLS_Start() #Lets go
 def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	clear_screen()
+	print("DEBUG 7") #DEBUG DEBUG
+	Thread_ADLS() #DEBUG DEBUG
+	print("DEBUG 8") #DEBUG DEBUG
 	global Auto_LogCount #How many tests to run
 	global Auto_LogTime #How long tests run for
 	global Auto_LogInterval #How long inbetween tests
 	global Auto_LogTime_counter
 	global Auto_LogInterval_Counter
 	global Auto_LogCount_save
+	global Auto_dls_temp
+	global Prog_TRun
 	Auto_dls_temp = 5 #Var for temp, auto hold
 	Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 	Auto_LogInterval_Counter = Auto_LogInterval #counter for how many tests to run
@@ -169,17 +197,17 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
     	151.0,
     	375.0,
     	anchor="nw",
-    	text="Licensed for: Palumbo Foods",
+    	text="Licensed for: " + comp_usage,
     	fill="#000000",
     	font=("Inter", 12 * -1)
 	)
 	button_image_1 = PhotoImage(
-    	file=relative_to_assets("button_1.png"))
+    	file=relative_to_assets("button_5.png"))
 	button_1 = Button(
 	    image=button_image_1,
     	borderwidth=0,
     	highlightthickness=0,
-    	command=lambda: print("button_1 clicked"),
+    	command=lambda: exit(), #print("Button 1 pressed"),
     	relief="flat"
 	)
 	button_1.place(
@@ -246,27 +274,36 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	)
 	window.resizable(False, False)
 	window.mainloop()
+	time.sleep(Prog_TRun)
+def Auto_DLS_Start_prog(): #Function for DLS, needed to seperate for threading on window **CURRENT TESTING**
+	clear_screen()
+	global Auto_LogCount #How many tests to run
+	global Auto_LogTime #How long tests run for
+	global Auto_LogInterval #How long inbetween tests
+	global Auto_LogTime_counter
+	global Auto_LogInterval_Counter
+	global Auto_LogCount_save
+	global Auto_dls_temp
 	while (Auto_LogTime_counter != 0 and Auto_LogInterval_Counter != 0):
 		clear_screen()
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
 			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + ' F \n') #Writes current temp to new line with time
 			print('Data logging in progress: ' + str(Auto_LogTime_counter) + (' seconds remaining in session.')) #Prints seconds left of DLS session
-			time.sleep(1.0) #Waits half second before looping
-			Auto_LogTime_counter = (Auto_LogTime_counter - 1)
-		while (Auto_LogTime_counter == 0 and Auto_LogInterval_Counter > 0):
-			clear_screen()
-			#print("DEBUG 4") #DEBUG
-			#print(str(Auto_LogInterval_Counter)) #DEBUG
-			Auto_LogInterval_Counter = (Auto_LogInterval_Counter - 1)
-			print("Automated data logging session has finished, next session starts in ", Auto_LogInterval_Counter, " seconds.")
-			time.sleep(2.0) #Wait
-			if Auto_LogTime_counter == 0 and Auto_LogInterval_Counter == 0:
-				#print("DEBUG 5") #DEBUG
-				#time.sleep(3.0) #DEBUG
-				Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count
-				Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
-				Auto_DLS_Start()
+		time.sleep(1.0) #Waits half second before looping
+		Auto_LogTime_counter = (Auto_LogTime_counter - 1)
+	while (Auto_LogTime_counter == 0 and Auto_LogInterval_Counter > 0):
+		clear_screen()
+		#print("DEBUG 4") #DEBUG
+		#print(str(Auto_LogInterval_Counter)) #DEBUG
+		Auto_LogInterval_Counter = (Auto_LogInterval_Counter - 1)
+		print("Automated data logging session has finished, next session starts in ", Auto_LogInterval_Counter, " seconds.")
+		time.sleep(2.0) #Wait
+		if Auto_LogTime_counter == 0 and Auto_LogInterval_Counter == 0:
+			#print("DEBUG 5") #DEBUG
+			#time.sleep(3.0) #DEBUG
+			Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count				Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
+			Auto_DLS_Start()
 		if Auto_LogCount == 0:
 			clear_screen()
 			print("All testing has completed, software has ran ", Auto_LogCount_save, "tests. For a complete run time of ", Auto_TotalRun_Counter)
@@ -351,7 +388,7 @@ canvas.create_text(
     146.0,
     378.0,
     anchor="nw",
-    text="Licensed for: Palumbo Foods",
+    text="Licensed for: " + comp_usage,
     fill="#000000",
     font=("Inter", 12 * -1)
 )
@@ -421,7 +458,7 @@ button_5 = Button(
     image=button_image_5,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_5 clicked"),
+    command=lambda: exit(), #Goodbye :(
     relief="flat"
 )
 button_5.place(
