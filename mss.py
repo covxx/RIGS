@@ -20,32 +20,36 @@ global Auto_LogTime
 global Auto_LogInterval
 global b_ver
 global Auto_LogCount_save
+global Auto_LogInterval_Switch
 global Prog_TRun
+global Prog_TRun_M
+Auto_LogInterval_Switch = 0
 b_ver = ("v0.5 3_27_2023") #Bulid verison, used for GUI
 Prog_TRun = 0 #Program total run time (used for threading and progress bar TBD)
+Prog_TRun_M = 0 #Program total in minutes instead
 comp_usage = "Palumbo Foods LLC" #Company using
-Auto_LogCount_save = 0
-Auto_TotalRun_Counter = 0
+Auto_LogCount_save = 0 #Place holder var used for automated data logging
+Auto_TotalRun_Counter = 0 #Place holder var used for automated data logging
 Auto_LogTime = 0 #Logtime for automated logging, user will need to set 
 Auto_LogTime_counter = Auto_LogTime #Counter for logging, able to be reset and preserve data
 Auto_LogInterval = 0 #How long till data logging starts
 Auto_LogInterval_Counter = Auto_LogInterval #counter
-Auto_LogCount = 0
+Auto_LogCount = 0 #Place holder var used for automated data logging
 today_date = date.today() #Sets todays date as the current date
 current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
-today_date_time = datetime.now()
+today_date_time = datetime.now() #Gets date and time, var
 current_date_time = today_date_time.strftime("%m/%d/%Y %I:%M%p") #Gets date and time and saves to var in 12 hour format
 current_time = today_date_time.strftime("%I:%M%p")
 if os.environ.get('DISPLAY','') == '': #DEBUG for SSH testing
     print('no display found. Using :0.0') #DEBUG for SSH testing
     os.environ.__setitem__('DISPLAY', ':0.0') #DEBUG for SSH testing
-def Thread_ADLS(): #Auto_Data_Logging thread call, so tkinter window and code run
+def Thread_ADLS(): #Auto_Data_Logging thread call, so tkinter window and code run | IN PROGRESS
 	t1=Thread(target=Auto_DLS_Start_prog)
 	t1.start()
-def clear_screen():
+def clear_screen(): #Cross platform screen clearing
     if name == 'nt': #Clear screen for windows
         _ = system('cls')
-    else: #Clear screen for Mac and Linux
+    else: #Clear screen for unix
         _ = system('clear')
 def FRun(): #First time run check check, verifies config file is present
 	config_exists = os.path.exists('config.txt') 
@@ -55,11 +59,12 @@ def FRun(): #First time run check check, verifies config file is present
 	if config_exists == False:
 		ConfigSetup() #Calls program config
 		#print(config_exists) #Debug
-def ConfigSetup(): #Creates config file
+def ConfigSetup(): #Creates config file |
 	clear_screen()
-	print('Welcome to RIGS')
-	print('Please wait, preforming first time setup...')
+	print('Welcome to RIGS') #MSG BOX NEEDED
+	print('Please wait, preforming first time setup...') #MSG BOX NEEDED
 	with open('config.txt', 'w'): pass
+	time.sleep(3)
 	MainStart()
 def MainStart():
 	clear_screen()
@@ -75,18 +80,30 @@ def MainStart():
 	msi = int(input('Enter number selection to proceed:  '))
 	if msi == 1:
 		print ("Loading...")
-		Start_DLS() #Data logging to log file works, need to figure out sensor situation to implemnent actual data instead of static var
+		#Start_DLS() #Data logging to log file works, need to figure out sensor situation to implemnent actual data instead of static var
 	elif msi == 2:
 		print ("Loading...")
 		Auto_DLS_PreStart()
 	elif msi == 3:
 		print ("Loading...")
-		Start_sd()
+		Start_man_DLS()
 	elif msi == 4: 
 		print ("Shuting down application")
 		exit() #Closes program
 	else:
 		MainStart()
+def Auto_LogCheck(): #Sets log interval to 0 seconds if there is only one test
+	global Auto_LogCount
+	global Auto_LogInterval_Counter
+	global Auto_LogInterval_Switch
+	if Auto_LogCount == 1:
+		Auto_LogInterval_Switch = 0
+		#print(Auto_LogInterval) #DEBUG
+		#time.sleep(3) #DEBUG
+		return
+	else: #Nothing to change
+		Auto_LogInterval_Switch = 1
+		return
 def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	global window
 	global Auto_LogCount 
@@ -97,10 +114,9 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 	global Auto_LogCount_save #Saving log count for times around the sun
 	global Auto_dls_temp #Temp place holder 
 	global Prog_TRun #Total program run time
+	global Prog_TRun_M #Total program run time in minutes 
 	Auto_dls_temp = 1
 	clear_screen()
-	#print('RIGS Automated Data logging Setup')
-	#print('------------------------------------')
 	window.withdraw() #Closes Tkinter window
 	Auto_LogTime = simpledialog.askinteger(title="RIGS Automated Testing",
 				       							prompt="How Long would you like to data log for, in minutes? ")
@@ -108,16 +124,23 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 				       							prompt="Enter how many times would you like to data log? ")
 	Auto_LogInterval = simpledialog.askinteger(title="RIGS Automated Testing", #Would like to remove this if not needed but will assume multi sessions for now.
 					       							prompt="Enter how long between data logging sessions, in minutes? ")
-	Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime * 60 #Counter for logging, able to be reset and preserve data
-	Auto_LogInterval_Counter = Auto_LogInterval_Counter + Auto_LogInterval * 60 #counter
-	Prog_TRun = Prog_TRun + Auto_LogTime_counter + Auto_LogInterval_Counter * Auto_LogCount
+	#print(Auto_LogInterval)
+	#time.sleep(3)
+	Auto_LogTime_counter = Auto_LogTime_counter + (Auto_LogTime * 60) #Counter for logging, able to be reset and preserve data
+	Auto_LogInterval_Counter = Auto_LogInterval_Counter + (Auto_LogInterval * 60) #counter DEBUG DEBUG DEBUG UNCOMMENT ^^
+	Auto_LogCheck() #DEBUG DEBUG = Need to adjust automated function to keep running when this runs
+	#time.sleep(3) #More DEBUG comments
+	#print(Auto_LogInterval_Counter) #DEBUG
+	#time.sleep(3) #DEBUG
+	Prog_TRun = Prog_TRun + ((Auto_LogTime_counter + Auto_LogInterval_Counter) * Auto_LogCount)
+	Prog_TRun_M = (Prog_TRun // 60) #Convert total run time to minutes
 	Auto_LogCount_save = (Auto_LogCount_save + Auto_LogCount)
 	DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Adds session details to file
 	with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
 			f.write("** New data logging session start at " + str(current_time) + ' : Each test will run for: ' + str(Auto_LogTime) + ' minute(s). Test(s) will run ' + str(Auto_LogInterval) + ' seconds after the last. Total amount of tests to run is ' + str(Auto_LogCount) + ' ** \n') #Writes sessions details before session starts
 	Auto_DLS_Start() #Lets go
 def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
-	clear_screen()
+	clear_screen() #DEBUG
 	print("DEBUG 7") #DEBUG DEBUG
 	#Thread_ADLS() #DEBUG DEBUG WORKS!
 	print("DEBUG 8") #DEBUG DEBUG
@@ -129,6 +152,7 @@ def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
 	global Auto_LogCount_save
 	global Auto_dls_temp
 	global Prog_TRun
+	global Auto_LogInterval_Switch
 	Auto_dls_temp = 5 #Var for temp, auto hold
 	Auto_DLS_Start_prog()
 def Auto_DLS_Start_prog(): #Function for DLS, needed to seperate for threading on window **CURRENT TESTING**
@@ -140,54 +164,41 @@ def Auto_DLS_Start_prog(): #Function for DLS, needed to seperate for threading o
 	global Auto_LogInterval_Counter
 	global Auto_LogCount_save
 	global Auto_dls_temp
+	global Prog_TRun
+	global Prog_TRun_M
 	while (Auto_LogTime_counter != 0 and Auto_LogInterval_Counter != 0):
 		clear_screen()
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
 			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + ' F \n') #Writes current temp to new line with time
 			print('Data logging in progress: ' + str(Auto_LogTime_counter) + (' seconds remaining in session.')) #Prints seconds left of DLS session
-		time.sleep(1.0) #Waits half second before looping
+		time.sleep(1.0) #Wait for timer loop
 		Auto_LogTime_counter = (Auto_LogTime_counter - 1)
 	while (Auto_LogTime_counter == 0 and Auto_LogInterval_Counter > 0):
 		clear_screen()
-		#print("DEBUG 4") #DEBUG
-		#print(str(Auto_LogInterval_Counter)) #DEBUG
-		Auto_LogInterval_Counter = (Auto_LogInterval_Counter - 1)
-		print("Automated data logging session has finished, next session starts in ", Auto_LogInterval_Counter, " seconds.")
-		time.sleep(2.0) #Wait
-		if Auto_LogTime_counter == 0 and Auto_LogInterval_Counter == 0:
-			#print("DEBUG 5") #DEBUG
-			#time.sleep(3.0) #DEBUG
-			Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count	| Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
-			Auto_DLS_Start()
-		if Auto_LogCount == 0:
+		if Auto_LogInterval_Switch == 0:
+			Auto_LogCount = 0
 			clear_screen()
 			print("All testing has completed, software has ran ", Auto_LogCount_save, "tests. For a complete run time of", Prog_TRun,"seconds.")
-			#print("Debug 6")
-			time.sleep(3.0) #DEBUG
-			window.deiconify() #Shows window again
-def Start_DLS(): #General Datalogging, will become menu later with abilty to define args, now for debuging
-	clear_screen()
-	dls_temp = 0 #Current temp
-	LogCount = 0 #Loop timer
-	LogTime = 0
-	LogTime = int(input('How many seconds do you want to datalog for?:	'))
-	LogRemain = LogTime #Time remaining counter
-	while (LogCount < LogTime):
-		LogCount = LogCount + 1
-		LogRemain = LogRemain - 1
-		clear_screen()
-		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
-		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
-			f.write( str(current_time) + ': The current tempture is: ' + str(dls_temp) + ' F \n') #Writes current temp to new line with time
-			print('Data logging in progress: ' + str(LogRemain) + (' seconds remaining in session.')) #Prints seconds left of DLS session
-			time.sleep(0.5) #Waits half second before looping
-	clear_screen()
-	print('Data logging session has completed, log saved as ' + DLS_FileName )
-	#input('Press enter to return to main menu.')
-	MainStart()
-def Start_sd(): #Live sensor data menu, no logging | IN PROGRESS
-	sd_temp = 0
+			print('Data logging session has completed, log saved as ' + DLS_FileName )
+			messagebox.showinfo("RIGS","Data logging session has finished. Total log time is " + str(Prog_TRun_M) + " minute(s). Data log file named, " + DLS_FileName)
+			window.deiconify() #Shows main window again
+			break #Stop Automation
+		if Auto_LogInterval_Switch == 1:
+			print("Automated data logging session has finished, next session starts in ", Auto_LogInterval_Counter, " seconds.")
+			Auto_LogInterval_Counter = (Auto_LogInterval_Counter - 1)
+			time.sleep(1.0) #Wait for timer loop
+			if Auto_LogTime_counter == 0 and Auto_LogInterval_Counter == 0:
+				Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count	| Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
+				Auto_DLS_Start_prog()
+			if Auto_LogCount == 0: #No more testing
+				clear_screen()
+				print("All testing has completed, software has ran ", Auto_LogCount_save, "tests. For a complete run time of", Prog_TRun,"seconds.")
+				print('Data logging session has completed, log saved as ' + DLS_FileName )
+				messagebox.showinfo("RIGS","Data logging session has finished. Total log time is " + str(Prog_TRun_M) + " minute(s). Data log file named, " + DLS_FileName)
+				window.deiconify() #Shows main window again
+def Start_man_DLS(): #Live sensor data menu, no logging | IN PROGRESS
+	sd_temp = 0 #place holder for actual temp
 	clear_screen()
 	try:
 		while True:
