@@ -5,6 +5,7 @@
 import os
 import time
 import logging
+import cursor
 from threading import * #Needed for GUL + program to run at same time
 from os import system
 from datetime import datetime
@@ -23,7 +24,7 @@ global Auto_LogCount_save
 global Auto_LogInterval_Switch
 global Prog_TRun
 global Prog_TRun_M
-Auto_LogInterval_Switch = 0
+Auto_LogInterval_Switch = 0 #DEBUG DEBUG 
 b_ver = ("v0.5 3_30_2023") #Bulid verison, used for GUI
 Prog_TRun = 0 #Program total run time (used for threading and progress bar TBD)
 Prog_TRun_M = 0 #Program total in minutes instead
@@ -40,8 +41,9 @@ current_date = today_date.strftime("%m_%d_%Y") #Gets date, saves to var
 today_date_time = datetime.now() #Gets date and time, var
 current_date_time = today_date_time.strftime("%m/%d/%Y %I:%M%p") #Gets date and time and saves to var in 12 hour format
 current_time = today_date_time.strftime("%I:%M%p")
+cursor.hide() #Does what it says
 if os.environ.get('DISPLAY','') == '': #DEBUG for SSH testing
-    print('no display found. Using :0.0') #DEBUG for SSH testing
+    #print('no display found. Using :0.0') #DEBUG for SSH testing
     os.environ.__setitem__('DISPLAY', ':0.0') #DEBUG for SSH testing
 def Thread_ADLS(): #Auto_Data_Logging thread call, so tkinter window and code run | IN PROGRESS
 	t1=Thread(target=Auto_DLS_Start_prog)
