@@ -221,6 +221,7 @@ def Auto_DLS_Start_prog(): #Function for DLS, needed to seperate for threading o
 				print(Auto_LogInterval_Counter)
 				time.sleep(3)
 				Auto_DLS_Start_prog()
+			break
 def Start_man_DLS(): #Live sensor data menu, no logging | IN PROGRESS
 	window.withdraw() #Removes main window
 	global Man_dls_temp #
