@@ -1,6 +1,6 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
-# Build Date 3/27/2023
+# Build Date 3/30/2023
 # Build Ver. 0.5
 import os
 import time
@@ -24,7 +24,7 @@ global Auto_LogInterval_Switch
 global Prog_TRun
 global Prog_TRun_M
 Auto_LogInterval_Switch = 0
-b_ver = ("v0.5 3_27_2023") #Bulid verison, used for GUI
+b_ver = ("v0.5 3_30_2023") #Bulid verison, used for GUI
 Prog_TRun = 0 #Program total run time (used for threading and progress bar TBD)
 Prog_TRun_M = 0 #Program total in minutes instead
 comp_usage = "Palumbo Foods LLC" #Company using
@@ -140,6 +140,7 @@ def Auto_DLS_PreStart(): #Need to set variables first - could use lists instead
 			f.write("** New data logging session start at " + str(current_time) + ' : Each test will run for: ' + str(Auto_LogTime) + ' minute(s). Test(s) will run ' + str(Auto_LogInterval) + ' seconds after the last. Total amount of tests to run is ' + str(Auto_LogCount) + ' ** \n') #Writes sessions details before session starts
 	Auto_DLS_Start() #Lets go
 def Auto_DLS_Start(): #Automated DLS, vars from Auto_DLS_PreStart
+	window.withdraw() #Removes main window
 	clear_screen() #DEBUG
 	print("DEBUG 7") #DEBUG DEBUG
 	#Thread_ADLS() #DEBUG DEBUG WORKS!
@@ -166,52 +167,65 @@ def Auto_DLS_Start_prog(): #Function for DLS, needed to seperate for threading o
 	global Auto_dls_temp
 	global Prog_TRun
 	global Prog_TRun_M
+	messagebox.showinfo("RIGs - In Progress PLEASE WAIT","Data logging session in progress, please wait.  Total log time is " + str(Prog_TRun_M) + " minute(s)")
 	while (Auto_LogTime_counter != 0 and Auto_LogInterval_Counter != 0):
 		clear_screen()
 		DLS_FileName = ('Temp_Log_' + str(current_date) + '.txt') #Sets log file namee using 'todays' date from var current_date
 		with open(DLS_FileName, "a") as f: #Append data if file exists but will create new if not
-			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + ' F \n') #Writes current temp to new line with time
+			f.write( str(current_time) + ': The current tempture is: ' + str(Auto_dls_temp) + '  F \n') #Writes current temp to new line with time
+			print(current_date_time + ': The current tempture is: ' + str(Auto_dls_temp) + 'F') #Prints current date and time with tempture
 			print('Data logging in progress: ' + str(Auto_LogTime_counter) + (' seconds remaining in session.')) #Prints seconds left of DLS session
 		time.sleep(1.0) #Wait for timer loop
 		Auto_LogTime_counter = (Auto_LogTime_counter - 1)
 	while (Auto_LogTime_counter == 0 and Auto_LogInterval_Counter > 0):
 		clear_screen()
 		if Auto_LogInterval_Switch == 0:
-			Auto_LogCount = 0
+			#Auto_LogCount = 0
 			clear_screen()
 			print("All testing has completed, software has ran ", Auto_LogCount_save, "tests. For a complete run time of", Prog_TRun,"seconds.")
 			print('Data logging session has completed, log saved as ' + DLS_FileName )
 			messagebox.showinfo("RIGS","Data logging session has finished. Total log time is " + str(Prog_TRun_M) + " minute(s). Data log file named, " + DLS_FileName)
+			time.sleep(5)
 			window.deiconify() #Shows main window again
-			break #Stop Automation
+			#break #Stop Automation
 		if Auto_LogInterval_Switch == 1:
 			print("Automated data logging session has finished, next session starts in ", Auto_LogInterval_Counter, " seconds.")
 			Auto_LogInterval_Counter = (Auto_LogInterval_Counter - 1)
 			time.sleep(1.0) #Wait for timer loop
 			if Auto_LogTime_counter == 0 and Auto_LogInterval_Counter == 0:
 				Auto_LogCount = Auto_LogCount - 1 #Minus 1 to log count	| Auto_LogTime_counter = Auto_LogTime_counter + Auto_LogTime
+				print("DEBUG 13")
+				print(Auto_LogCount)
+				print(Auto_LogCount_save)
+				time.sleep(3)
 				Auto_DLS_Start_prog()
 			if Auto_LogCount == 0: #No more testing
 				clear_screen()
 				print("All testing has completed, software has ran ", Auto_LogCount_save, "tests. For a complete run time of", Prog_TRun,"seconds.")
 				print('Data logging session has completed, log saved as ' + DLS_FileName )
 				messagebox.showinfo("RIGS","Data logging session has finished. Total log time is " + str(Prog_TRun_M) + " minute(s). Data log file named, " + DLS_FileName)
+				time.sleep(3)
 				window.deiconify() #Shows main window again
 def Start_man_DLS(): #Live sensor data menu, no logging | IN PROGRESS
-	sd_temp = 0 #place holder for actual temp
+	window.withdraw() #Removes main window
+	global Man_dls_temp #
+	Man_DLS_Log = 1
+	Man_dls_temp = 0 #place holder for actual temp
 	clear_screen()
 	try:
-		while True:
+		while Man_DLS_Log != 0:
 			clear_screen()
 			print("Sensor data will be shown below, to exit press CTRL+C.")
-			print(current_date_time, ': The current tempture is: ', sd_temp) #Prints current date and time with tempture, loops till CTRL+C
+			print(current_date_time + ': The current tempture is: ' + str(Man_dls_temp) + 'F') #Prints current date and time with tempture, loops till CTRL+C 
+			Man_DLS_Log = Man_DLS_Log + 1
+			Man_dls_temp = Man_dls_temp + 1
 			time.sleep(1.0) #Matrix wall without
 	except KeyboardInterrupt:
-			clear_screen()
-			print('The final tempture is: ', sd_temp, 'F')
-			print("Session has been ended, returning to main menu..")
-			time.sleep(3.0) #Sleep for message to display, yes making it slower on purpose
-			MainStart() #Back to menu
+		clear_screen()
+		print('The final tempture is: ', Man_dls_temp, 'F')
+		print("Session has been ended, returning to main menu..")
+		time.sleep(3.0) #Sleep for message to display, yes making it slower on purpose
+		window.deiconify() #Brings main window back
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\JENS3\OneDrive\Desktop\RIGS\assets\frame0")
 def relative_to_assets(path: str) -> Path:
@@ -244,18 +258,18 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 canvas.create_text(
-    135.0,
-    393.0,
+    130.0,
+    390.0,
     anchor="nw",
-    text="Copyright 2023 Christian Jensen",
+    text="Licensed for: " + comp_usage,
     fill="#000000",
     font=("Inter", 12 * -1)
 )
 canvas.create_text(
-    146.0,
+    143.0,
     378.0,
     anchor="nw",
-    text="Licensed for: " + comp_usage,
+    text="Copyright 2023 Christian Jensen", #"Licensed for: " + comp_usage,
     fill="#000000",
     font=("Inter", 12 * -1)
 )
@@ -265,7 +279,7 @@ button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: Start_man_DLS(), #print("button_1 clicked"),
     relief="flat"
 )
 button_1.place(
