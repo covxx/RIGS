@@ -1,7 +1,7 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
 # Build Date 3/30/2023
-# Build Ver. 0.5
+# Build Ver. 0.6
 import os
 import time
 import logging
