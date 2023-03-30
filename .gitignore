@@ -6,4 +6,7 @@ GUI_test
 .DS_Store
 config.py
 test.txt
+build
+dist
 *.txt
+mss.spec
