@@ -243,7 +243,7 @@ def Start_man_DLS(): #Live sensor data menu, no logging | IN PROGRESS
 		time.sleep(3.0) #Sleep for message to display, yes making it slower on purpose
 		window.deiconify() #Brings main window back
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:/Users/JENS3/Desktop/RIGS/assets/frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"/Users/cj/Documents/GitHub/RIGS/assets/frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def relative_to_assets(path: str) -> Path:
@@ -251,9 +251,9 @@ def relative_to_assets(path: str) -> Path:
 window = Tk()
 window.title("RIGS - Automated Data Logging") #GUI Window Name
 if "nt" == os.name: #Cross platform bitmaps
-    window.wm_iconbitmap(bitmap = r"C:/Users/JENS3/Desktop/RIGS/assets/rigs.ico") #Need to be relative
+    window.wm_iconbitmap(bitmap = r"/Users/cj/Documents/GitHub/RIGS/assets/rigs.ico") #Need to be relative
 else:
-    window.wm_iconbitmap(bitmap = r'C:/Users/JENS3/Desktop/RIGS/assets/@rigs.xbm') #Need to be relative
+    window.wm_iconbitmap(bitmap = r'/Users/cj/Documents/GitHub/RIGS/assets/@rigs.xbm') #Need to be relative
 window.geometry("469x408")
 window.configure(bg = "#FFFFFF")
 canvas = Canvas(
