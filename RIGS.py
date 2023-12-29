@@ -1,6 +1,6 @@
 # RIGS | RPi Indoor Grow Sensor System
 # https://github.com/covxx/mss
-# Build Date 3/30/2023
+# Build Date 10/22/2023
 # Build Ver. 0.6
 import os
 import time
@@ -27,7 +27,7 @@ global Prog_TRun_M
 global breaker 
 breaker = 1 #Please break all loops
 Auto_LogInterval_Switch = 0 #DEBUG DEBUG 
-b_ver = ("v0.5 3_30_2023") #Bulid verison, used for GUI
+b_ver = ("v0.6 10_29_2023") #Bulid verison, used for GUI
 Prog_TRun = 0 #Program total run time (used for threading and progress bar TBD)
 Prog_TRun_M = 0 #Program total in minutes instead
 comp_usage = "Palumbo Foods LLC" #Company using
